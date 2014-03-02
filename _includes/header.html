@@ -1,0 +1,17 @@
+          <header role="banner">
+            <div id="logo">
+              <a href="http://varnow.org"><img src="/img/m-logo-plain.png" alt="Miller" /></a>
+            </div>
+            
+            <nav role="navigation">
+              <ul class="group">
+                <li id="t-home"{% if include.param == "blog" %} class="active"{% endif %}><a href="/">Home</a></li>
+                <li id="t-work"{% if include.param == "work" %} class="active"{% endif %}><a href="/work.html">Work</a></li>
+                <li id="t-books"{% if include.param == "books" %} class="active"{% endif %}><a href="/books.html">Books</a></li>
+                <li id="t-about"{% if include.param == "about" %} class="active"{% endif %}><a href="/about.html">About</a></li>
+              </ul>
+            </nav>
+          </header>
+          <!-- /header -->
+
+          <hr />
