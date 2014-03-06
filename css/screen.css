@@ -151,7 +151,7 @@ header[role="banner"] {
 	}
 #logo img {
 	display: block;
-	/*height: 0;*/
+	height: 0;
 	}
 #logo a:hover {
 	background-position: 0 -64px;
