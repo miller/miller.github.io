@@ -1,3 +1,5 @@
-name: Your New Jekyll Site
+name: MILLER IS ME
 markdown: redcarpet
 pygments: true
+safe: false
+url: http://milleris.me
