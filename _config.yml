@@ -1,5 +1,5 @@
 name: MILLER IS ME
 markdown: redcarpet
 pygments: true
-safe: true
+safe: false
 url: http://milleris.me
