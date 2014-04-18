@@ -36,10 +36,20 @@ module.exports = function(grunt) {
           }]
         }
       },
+      responsive_images_converter: {
+        default: {
+            options: {
+                asset: '/img/resp/'
+            },
+            src: [ '_posts/**.md' ],
+        }
+      },
     });
 
-    grunt.loadNpmTasks('grunt-responsive-images');
+    grunt.loadNpmTasks('grunt-responsive-images');    
+    grunt.loadNpmTasks('grunt-responsive-images-converter');
+
 
     // Default task(s).
-    grunt.registerTask( 'default', [ 'responsive_images' ] );
+    grunt.registerTask( 'default', [ 'responsive_images', 'responsive_images_converter' ] );
 };

@@ -2,6 +2,7 @@
   "name": "milleris.me",
   "version": "0.1.0",
   "devDependencies": {
-    "grunt-responsive-images": "~0.1.1"
+    "grunt-responsive-images": "~0.1.1",
+    "grunt-responsive-images-converter": "~0.0.2"
   }
 }
