@@ -81,6 +81,14 @@ strong {
 
 /* code styles
 --------------------------------------------- */
+
+pre code{
+	font: inherit;
+	color: inherit;
+	background-color: none;
+	border-radius: 0;
+}
+
 code {
   font-size: 1em;
   font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
@@ -89,13 +97,6 @@ code {
   color: #c7254e;
   background-color: #f9f2f4;
   border-radius: 4px;
-}
-
-pre code{
-	font: inherit;
-	color: inherit;
-	background-color: none;
-	border-radius: 0;
 }
 	
 /* page structure 
