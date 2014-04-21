@@ -142,7 +142,12 @@ grunt.initConfig({
 
 最后，实际的例子可以查看下面这张图片。
 
-![响应式图片示例](/img/raw/responsive-image-demo-flower.jpg)
+<picture>
+    <source srcset="/img/resp/responsive-image-demo-flower-phone.jpg, /img/resp/responsive-image-demo-flower-phone@2x.jpg 2x" media="(max-width:500px)">
+    <source srcset="/img/resp/responsive-image-demo-flower-tablet.jpg, /img/resp/responsive-image-demo-flower-tablet@2x.jpg 2x" media="(max-width:800px)">
+    <source srcset="/img/resp/responsive-image-demo-flower-desktop.jpg, /img/resp/responsive-image-demo-flower-desktop@2x.jpg 2x" media="(min-width:800px)">
+    <img alt="响应式图片示例">
+</picture>
 
 
 
