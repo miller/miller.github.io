@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "使用grunt插件让你的jekyll博客轻松支持响应式图片"
+title:  "让你的jekyll博客轻松支持响应式图片"
 date:   2014-04-21 10:00:00
 tags: responsive image,grunt
 ---
@@ -31,6 +31,7 @@ tags: responsive image,grunt
              banner-phone-HD.jpeg 100w 2x"/>
 ```
 
+
 针对[picture元素草案](http://picture.responsiveimages.org/)的实现，推荐[Picturefill](http://scottjehl.github.io/picturefill/)。
 
 
@@ -45,9 +46,10 @@ document.createElement( "picture" );
     <source srcset="examples/images/extralarge.jpg" media="(min-width: 1000px)">
     <source srcset="examples/images/large.jpg" media="(min-width: 800px)">
     <source srcset="examples/images/medium.jpg">
-    <img srcset="examples/images/medium.jpg" alt="A giant stone face at The Bayon temple in Angkor Thom, Cambodia">
+    <img srcset="examples/images/medium.jpg" alt="A giant stone">
 </picture>
 ```
+
 
 注意：JS的polyfill目前还存在一些无法克服的问题，例如图片必须在JS加载完成并执行后才会开始加载或者JS被禁用后图片便无法显示。
 
@@ -123,6 +125,7 @@ grunt.initConfig({
 })
 ```
 
+
 使用上述配置编译后，MD文件中的标签，例如`! [Webp compare tool](/img/raw/webp-tool.png)
 `将会被替换成如下内容：
 
@@ -136,14 +139,10 @@ grunt.initConfig({
 </picture>
 ```
 
+
 最后，实际的例子可以查看下面这张图片。
 
-<picture>
-    <source srcset="/img/resp/responsive-image-demo-flower-phone, /img/resp/responsive-image-demo-flower-phone@2x 2x" media="(max-width:500px)">
-    <source srcset="/img/resp/responsive-image-demo-flower-tablet, /img/resp/responsive-image-demo-flower-tablet@2x 2x" media="(max-width:800px)">
-    <source srcset="/img/resp/responsive-image-demo-flower-desktop, /img/resp/responsive-image-demo-flower-desktop@2x 2x" media="(min-width:800px)">
-    <img alt="响应式图片示例">
-</picture>
+![响应式图片示例](/img/raw/responsive-image-demo-flower.jpg)
 
 
 
