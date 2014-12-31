@@ -1,1 +1,152 @@
-<!DOCTYPE html> <head> <meta http-equiv=Content-Type content="text/html; charset=utf-8"> <meta name=viewport content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"> <meta content=yes name="apple-mobile-web-app-capable"> <meta content=black name="apple-mobile-web-app-status-bar-style"> <meta content="telephone=no" name="format-detection"> <script src=http://ap.vip.com/statics/touch/jquery.min.js></script> <script src=http://weixin-static.vip.com/uploadfiles/caker/resources/js/sapp.js type=text/javascript charset=utf-8></script> <script src=http://weixin-static.vip.com/uploadfiles/caker/resources/js/cut.web.min.js type=text/javascript charset=utf-8></script> <script src="http://weixin-static.vip.com/uploadfiles/caker/resources/js/com.js?v=2.4" type=text/javascript charset=utf-8></script> <link href="http://weixin-static.vip.com/uploadfiles/caker/resources/css/style.css?v=2.4" rel=stylesheet type="text/css"> <title>我是糕手</title> <meta name="front-end technicist" content="蕉皮"> <!--分享--> <meta name=shareText content="寻找最强糕手！挑战史无前例生日蛋糕~"> <meta name=shareImg content="http://weixin-static.vip.com/uploadfiles/caker/resources/images/share.jpg">  <body> <div id=wrap> <div id=loading class=in> <div class=main> <div class=logo></div> <div class=beeLeftRight> <div class=beeUpDown> <div class=bee></div> </div> </div> <div class=word>loading......</div> </div> </div> <!--页面 封面--> <section class=page id=cover> <div class=main> <h1 class=cover-words1>我是糕手</h1> <div class=cover-words2>HAPPY 6 YEAR</div> <div class=cover-heart>6周年店庆月</div> <div class=cover-ribbon></div> <div class=cover-cap></div> <div class="cover-fireworks cover-fireworks1"></div> <div class="cover-fireworks cover-fireworks2"></div> <div class="cover-fireworks cover-fireworks3"></div> <a class=btn-start href=javascript:;>开始游戏</a> <a class=btn-rules href=javascript:;>活动规则</a> </div> <div id=rules> <div class=main> <h2>唯品会6周年生日蛋糕寻找最强糕手</h2> <ul> <li>通过叠蛋糕游戏成绩高低,获取不同面额优惠券</li> <li>游戏开始后，点击屏幕上的任意区域可投下悬吊的蛋糕，落在顶层蛋糕有效范围内方有效，若掉落地上，则游戏结束。</li> <li>优惠券有效期<br> 即日起至12月11日24:00，仅适用于特卖会自营订单，若产生退货则不予退回（详请咨询客服400-6789-999）<br> 20元、30元、40元优惠券分别满200元、300元、400元可用，领完即止。<br> 对应三种类型优惠券，每个用户最多可以各领一张，登录后自动充入账户，可在对应账户（唯品会账户或微信联登账户）的个人中心查收，可以在购物车中根据额度选择使用。 </li> </ul> <a class=btn-start href=javascript:;>开始游戏</a> </div> </div> </section> <!--页面 游戏页--> <section class=page id=game> <div id=game-ground></div> <div id=game-star><div class=game-starO></div></div> <div id=game-cloud><div class=game-cloudX></div></div> <div id=game-hp><b></b><b></b><b></b></div> <div id=game-score>0</div> <div id=game-logo></div> <div id=game-guide></div> <div id=game-hint20 class=game-hint></div> <div id=game-hint30 class=game-hint></div> <div id=game-hint40 class=game-hint></div> <div id=game-music></div> </section> <!--控件层--> <aside id=aside> <div class=main> </div> <div id=pop-share></div> </aside> <div id=pop1 class=pop> <div class=main> <div class=pop-text> 这片领空已被你占领<br>真正的糕手不惧挑战！<br>更高奖励在云端等你哦~ </div> <div class=pop-btns> <a class=btn-start href=javascript:;>再玩一次</a> <a class=btn-share href=javascript:;>分享</a> </div> </div> </div> <div id=pop2 class=pop> <div class=main> <div class=pop-title></div> <div class=pop-text></div> <div class=pop-btns> <a class=btn-start href=javascript:;>再玩一次</a> <a id=btn-ticket href=javascript:;>领红包</a> </div> </div> </div> <div id=pop3 class=pop> <div class=main> <div class=pop-text></div> <div class=pop-btns> <a class=btn-share href=javascript:;>分享</a> <a class=btn-view href="http://weixin.vip.com/weixin/redirect.php?src=http://m.vip.com/user-coupon.html">去查看</a> </div> </div> </div> <div id=pop4 class=pop> <div class=main> <div class=pop-text> 我做的生日蛋糕就是这么任性<br>分享出去和小伙伴们一起任性吧~ </div> <div class=pop-btns> <a class=btn-start href=javascript:;>再玩一次</a> <a class=btn-share href=javascript:;>分享</a> </div> </div> </div> </div> <!--埋点js--> <script src=http://3rd-app.vipstatic.com/mars/mars_wap.js></script>  
+
+<!DOCTYPE html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+<meta content="telephone=no" name="format-detection"/>
+<script src="http://ap.vip.com/statics/touch/jquery.min.js"></script>
+<script src="http://weixin-static.vip.com/uploadfiles/caker/resources/js/sapp.js" type="text/javascript" charset="utf-8"></script>
+<script src="http://weixin-static.vip.com/uploadfiles/caker/resources/js/cut.web.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="http://weixin-static.vip.com/uploadfiles/caker/resources/js/com.js?v=2.4" type="text/javascript" charset="utf-8"></script>
+<link href="http://weixin-static.vip.com/uploadfiles/caker/resources/css/style.css?v=2.4" rel="stylesheet" type="text/css" />
+
+<title>我是糕手</title>
+<meta name="front-end technicist" content="蕉皮"/>
+<!--分享-->
+<meta name="shareText" content="寻找最强糕手！挑战史无前例生日蛋糕~"/>
+<meta name="shareImg" content="http://weixin-static.vip.com/uploadfiles/caker/resources/images/share.jpg"/>
+</head>
+
+<body>
+
+<div id="wrap">
+
+  <div id="loading" class="in">
+    <div class="main">
+    <div class="logo"></div>
+    <div class="beeLeftRight">
+      <div class="beeUpDown">
+          <div class="bee"></div>
+        </div>
+      </div>
+      <div class="word">loading......</div>
+    </div>
+  </div>
+
+  <!--页面 封面-->
+  <section class="page" id="cover">
+    <div class="main">
+      <h1 class="cover-words1">我是糕手</h1>
+      <div class="cover-words2">HAPPY 6 YEAR</div>
+      <div class="cover-heart">6周年店庆月</div>
+      <div class="cover-ribbon"></div>
+      <div class="cover-cap"></div>
+      <div class="cover-fireworks cover-fireworks1"></div>
+      <div class="cover-fireworks cover-fireworks2"></div>
+      <div class="cover-fireworks cover-fireworks3"></div>
+      <a class="btn-start" href="javascript:;">开始游戏</a>
+      <a class="btn-rules" href="javascript:;">活动规则</a>
+  </div>
+
+  <div id="rules">
+      <div class="main">
+        <h2>唯品会6周年生日蛋糕寻找最强糕手</h2>
+        <ul>
+          <li>通过叠蛋糕游戏成绩高低,获取不同面额优惠券</li>
+          <li>游戏开始后，点击屏幕上的任意区域可投下悬吊的蛋糕，落在顶层蛋糕有效范围内方有效，若掉落地上，则游戏结束。</li>
+          <li>优惠券有效期<br>
+            即日起至12月11日24:00，仅适用于特卖会自营订单，若产生退货则不予退回（详请咨询客服400-6789-999）<br>
+            20元、30元、40元优惠券分别满200元、300元、400元可用，领完即止。<br>
+            对应三种类型优惠券，每个用户最多可以各领一张，登录后自动充入账户，可在对应账户（唯品会账户或微信联登账户）的个人中心查收，可以在购物车中根据额度选择使用。
+          </li>
+        </ul>
+        <a class="btn-start" href="javascript:;">开始游戏</a>
+      </div>
+    </div>
+  </section>
+
+  <!--页面 游戏页-->
+  <section class="page" id="game">
+    <div id="game-ground"></div>
+    <div id="game-star"><div class="game-starO"></div></div>
+    <div id="game-cloud"><div class="game-cloudX"></div></div>
+    <div id="game-hp"><b></b><b></b><b></b></div>
+    <div id="game-score">0</div>
+    <div id="game-logo"></div>
+    <div id="game-guide"></div>
+    <div id="game-hint20" class="game-hint"></div>
+    <div id="game-hint30" class="game-hint"></div>
+    <div id="game-hint40" class="game-hint"></div>
+    <div id="game-music"></div>
+  </section>
+
+
+  <!--控件层-->
+  <aside id="aside">
+    <div class="main">
+    </div>
+    <div id="pop-share"></div>
+  </aside>
+
+  <div id="pop1" class="pop">
+    <div class="main">
+      <div class="pop-text">
+        这片领空已被你占领<br>真正的糕手不惧挑战！<br>更高奖励在云端等你哦~
+      </div>
+      <div class="pop-btns">
+        <a class="btn-start" href="javascript:;">再玩一次</a>
+        <a class="btn-share" href="javascript:;">分享</a>
+      </div>
+    </div>
+  </div>
+
+  <div id="pop2" class="pop">
+    <div class="main">
+      <div class="pop-title"></div>
+      <div class="pop-text"></div>
+      <div class="pop-btns">
+        <a class="btn-start" href="javascript:;">再玩一次</a>
+        <a id="btn-ticket" href="javascript:;">领红包</a>
+      </div>
+    </div>
+  </div>
+
+  <div id="pop3" class="pop">
+    <div class="main">
+      <div class="pop-text"></div>
+      <div class="pop-btns">
+        <a class="btn-share" href="javascript:;">分享</a>
+        <a class="btn-view" href="http://weixin.vip.com/weixin/redirect.php?src=http://m.vip.com/user-coupon.html">去查看</a>
+      </div>
+    </div>
+  </div>
+
+  <div id="pop4" class="pop">
+    <div class="main">
+      <div class="pop-text">
+        我做的生日蛋糕就是这么任性<br>分享出去和小伙伴们一起任性吧~
+      </div>
+      <div class="pop-btns">
+        <a class="btn-start" href="javascript:;">再玩一次</a>
+        <a class="btn-share" href="javascript:;">分享</a>
+      </div>
+    </div>
+  </div>
+
+
+
+
+</div>
+
+<!--埋点js-->
+<script src="http://3rd-app.vipstatic.com/mars/mars_wap.js" ></script>
+</body>
+</html>
+
+
+
+
+
