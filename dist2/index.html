@@ -1,0 +1,126 @@
+<!DOCTYPE html> <html class=no-js> <head> <meta charset=utf-8> <title>百度15岁生日快乐</title> <meta name=description content=""> <meta name=viewport content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,minimal-ui"> <link rel="shortcut icon" href=/6df2b309.favicon.ico> <!-- Place favicon.ico and apple-touch-icon.png in the root directory --> <link rel=stylesheet href=styles/c76c5e63.vendor.css> <link rel=stylesheet href=styles/db50eea0.main.css> <meta name=shareText content="快快来和熊孩子们一起为百度庆生吧！"> <meta name=shareImg content="http://huiyangche.duapp.com/bd15/dist2/assets/logo.jpg"> <style>#loader {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 1000;
+        
+        background: -webkit-linear-gradient(0deg, #614385 10%, #516395 90%);              
+      }
+      
+
+      body {
+          background-color: #3b3b3b;
+      }
+      .loading {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+      }
+      .loading .bullet {
+          position: absolute;
+          padding: 5px;
+          border-radius: 50%;
+          background: #65a3ff;
+          -webkit-animation: animIn 1s ease-in-out 0s infinite;
+          animation: animIn 1s ease-in-out 0s infinite;
+      }
+      .loading .bullet:nth-child(1) {
+          -webkit-animation-delay: 0s;
+          animation-delay: 0s;
+      }
+      .loading .bullet:nth-child(2) {
+          -webkit-animation-delay: 0.15s;
+          animation-delay: 0.15s;
+      }
+      .loading .bullet:nth-child(3) {
+          -webkit-animation-delay: 0.3s;
+          animation-delay: 0.3s;
+      }
+      .loading .bullet:nth-child(4) {
+          -webkit-animation-delay: 0.45s;
+          animation-delay: 0.45s;
+      }
+      @-webkit-keyframes animIn {
+          0% {
+              -webkit-transform: translateX(-100px);
+              transform: translateX(-100px);
+              opacity: 0;
+          }
+          50% {
+              opacity: 1;
+          }
+          100% {
+              -webkit-transform: translateX(100px);
+              transform: translateX(100px);
+              opacity: 0;
+          }
+      }
+      @keyframes animIn {
+          0% {
+              -webkit-transform: translateX(-100px);
+              transform: translateX(-100px);
+              opacity: 0;
+          }
+          50% {
+              opacity: 1;
+          }
+          100% {
+              -webkit-transform: translateX(100px);
+              transform: translateX(100px);
+              opacity: 0;
+          }
+      }
+
+      div.logo {
+        position: absolute;
+        width:            20.46%;
+        height:           3.64%;
+        top: 20px;
+        left: 50%;
+        -webkit-transform: translateX(-50%);
+        background: transparent  url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN0AAABGCAYAAABIZZGaAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyhpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMDE0IDc5LjE1Njc5NywgMjAxNC8wOC8yMC0wOTo1MzowMiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTQgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OThBM0ZGNzA4MkNGMTFFNEIyQ0RENDNCQzc5NTYwMEQiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OThBM0ZGNzE4MkNGMTFFNEIyQ0RENDNCQzc5NTYwMEQiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo5OEEzRkY2RTgyQ0YxMUU0QjJDREQ0M0JDNzk1NjAwRCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo5OEEzRkY2RjgyQ0YxMUU0QjJDREQ0M0JDNzk1NjAwRCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pn1ZHwUAABEQSURBVHja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') no-repeat;
+        background-size: contain;
+        background-position: center;
+      }</style> <script>function loaded() {
+      $('.scene-0 .bear, .scene-0 .startwrap').addClass('fadeInUp animated');
+      $('.scene-0 .today,.scene-0 .baidu,.scene-0 .yearswrap').addClass('bounceIn animated');
+      $('#loader').hide();
+    }</script>  <body onload=loaded()> <!--[if lt IE 10]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]--> <div id=loader> <div class=logo></div> <div class=loading> <div class=bullet></div> <div class=bullet></div> <div class=bullet></div> <div class=bullet></div> </div> </div> <div class="scene scene-0"> <!-- <h1 id="startGame">开始游戏</h1> --> <img class=bear src=images/bb08bb97.bear.png> <img class=today src=images/282624db.today.png> <img class=baidu src=images/134d4a19.baidu.png> <div class=yearswrap><img class=years src=images/847f3156.15years.png></div> <div class=startwrap> <img id=enterGame class=start src=images/6983b836.start.png> </div> </div> <img class=mute src=images/0eb69b65.mute.png> <img style=height:1;width:1;opacity:0 src=images/48cec52a.mute1.png> <div class="scene scene-1" style=display:none> <div id=countdown> <span id=sec>00</span>.<span id=msec>000</span> </div> <div class=cake> <img class="sprite-img sprite-img-1" src=images/ff097daf.sprite1-1.png> <img class="sprite-img sprite-img-2" src=images/4545936c.sprite1-2.png> <img class="sprite-img sprite-img-3" src=images/1a125aa9.sprite1-3.png> <img class="sprite-img sprite-img-4" src=images/102d29f1.sprite1-4.png> <img class=cake-img src=images/125c13b2.cake1-1.png> <div class="candle candle1"> <div class=fire> <div class="red flame"></div> <div class="orange flame"></div> <div class="yellow flame"></div> <div class="white flame"></div> </div> </div> <div class="candle candle2"> <div class=fire> <div class="red flame"></div> <div class="orange flame"></div> <div class="yellow flame"></div> <div class="white flame"></div> </div> </div> <div class="candle candle3"> <div class=fire> <div class="red flame"></div> <div class="orange flame"></div> <div class="yellow flame"></div> <div class="white flame"></div> </div> </div> <div class="candle candle4"> <div class=fire> <div class="red flame"></div> <div class="orange flame"></div> <div class="yellow flame"></div> <div class="white flame"></div> </div> </div> <div class="candle candle5"> <div class=fire> <div class="red flame"></div> <div class="orange flame"></div> <div class="yellow flame"></div> <div class="white flame"></div> </div> </div> <div class="candle candle6"> <div class=fire> <div class="red flame"></div> <div class="orange flame"></div> <div class="yellow flame"></div> <div class="white flame"></div> </div> </div> <div class="candle candle7"> <div class=fire> <div class="red flame"></div> <div class="orange flame"></div> <div class="yellow flame"></div> <div class="white flame"></div> </div> </div> <div class="candle candle8"> <div class=fire> <div class="red flame"></div> <div class="orange flame"></div> <div class="yellow flame"></div> <div class="white flame"></div> </div> </div> <div class="candle candle9"> <div class=fire> <div class="red flame"></div> <div class="orange flame"></div> <div class="yellow flame"></div> <div class="white flame"></div> </div> </div> <div class="candle candle10"> <div class=fire> <div class="red flame"></div> <div class="orange flame"></div> <div class="yellow flame"></div> <div class="white flame"></div> </div> </div> <div class="candle candle11"> <div class=fire> <div class="red flame"></div> <div class="orange flame"></div> <div class="yellow flame"></div> <div class="white flame"></div> </div> </div> <div class="candle candle12"> <div class=fire> <div class="red flame"></div> <div class="orange flame"></div> <div class="yellow flame"></div> <div class="white flame"></div> </div> </div> <div class="candle candle13"> <div class=fire> <div class="red flame"></div> <div class="orange flame"></div> <div class="yellow flame"></div> <div class="white flame"></div> </div> </div> <div class="candle candle14"> <div class=fire> <div class="red flame"></div> <div class="orange flame"></div> <div class="yellow flame"></div> <div class="white flame"></div> </div> </div> <div class="candle candle15"> <div class=fire> <div class="red flame"></div> <div class="orange flame"></div> <div class="yellow flame"></div> <div class="white flame"></div> </div> </div> <div class="candle candle16"> <div class=fire> <div class="red flame"></div> <div class="orange flame"></div> <div class="yellow flame"></div> <div class="white flame"></div> </div> </div> <div class="candle candle17"> <div class=fire> <div class="red flame"></div> <div class="orange flame"></div> <div class="yellow flame"></div> <div class="white flame"></div> </div> </div> <div class="candle candle18"> <div class=fire> <div class="red flame"></div> <div class="orange flame"></div> <div class="yellow flame"></div> <div class="white flame"></div> </div> </div> <div class="candle candle19"> <div class=fire> <div class="red flame"></div> <div class="orange flame"></div> <div class="yellow flame"></div> <div class="white flame"></div> </div> </div> <div class="candle candle20"> <div class=fire> <div class="red flame"></div> <div class="orange flame"></div> <div class="yellow flame"></div> <div class="white flame"></div> </div> </div> <div class="candle candle21"> <div class=fire> <div class="red flame"></div> <div class="orange flame"></div> <div class="yellow flame"></div> <div class="white flame"></div> </div> </div> <div class="candle candle22"> <div class=fire> <div class="red flame"></div> <div class="orange flame"></div> <div class="yellow flame"></div> <div class="white flame"></div> </div> </div> <div class="candle candle23"> <div class=fire> <div class="red flame"></div> <div class="orange flame"></div> <div class="yellow flame"></div> <div class="white flame"></div> </div> </div> <div class="candle candle24"> <div class=fire> <div class="red flame"></div> <div class="orange flame"></div> <div class="yellow flame"></div> <div class="white flame"></div> </div> </div> <div class="candle candle25"> <div class=fire> <div class="red flame"></div> <div class="orange flame"></div> <div class="yellow flame"></div> <div class="white flame"></div> </div> </div> <div class="candle candle26"> <div class=fire> <div class="red flame"></div> <div class="orange flame"></div> <div class="yellow flame"></div> <div class="white flame"></div> </div> </div> </div> <div class=guide> <div class=text> 在最短时间内<br> 点击并点亮所有蜡烛<br> 就能和熊孩子们一起<br> 为百度庆生啦！ </div> <img id=startGame src=images/bb99c001.start2.png> </div> <div class=wish-txt> 一起许愿吹蜡烛吧 </div> </div> <div class="scene scene-2" style=display:none;opacity:1> <img class=fragments src=images/370290c5.fragments.png> <img class=fragments2 src=images/370290c5.fragments.png> <div class=balloon> <div><span></span><div class=thread></div></div> <div><span></span><div class=thread></div></div> <div><span></span><div class=thread></div></div> <div><span></span><div class=thread></div></div> <div><span></span><div class=thread></div></div> </div> <div class=cake> <div class=applause> <img src=images/86a8ab1d.sprite2-1.png> <img src=images/a5425fd9.sprite2-2.png> </div> <div class=blow> <img src=images/e30e107f.sprite2-3.png> <img src=images/f2ffe85a.sprite2-4.png> </div> <img class=cake-img src=images/617bffac.cake2.png> </div> <div class=end style=display:none> <div class=text> <img src=images/3e38c95a.text-bg.png> <div class=text-inner> 哇塞！<br> 你只用了<span id=result></span>秒就点燃了所有蜡烛，<br> 战胜了<span id=percent></span>%的小伙伴，<br> 分享并截图发给百度Family微信公众号。<br> （微信号 baidufamily）<br> 就有机会赢得年会门票，一共3张哦！ </div> </div> <div class=happyyears> <img src=images/ae369990.happyyears.png> </div> <div class=btns> <img id=play-again height=56 src=images/02a8f4b7.btn-again.png> <img id=share height=56 src=images/7378951c.btn-share.png> </div> </div> <div class=share style=display:none> <img src=images/723ea301.share-arrow.png> </div> </div> <audio id=music src=assets/song.mp3 loop autoplay></audio> <script src=scripts/bd4379d3.vendor.js></script> <script>var shareData = {
+      imgUrl: 'http://huiyangche.duapp.com/bd15/dist2/assets/logo.jpg',
+      link: 'http://huiyangche.duapp.com/bd15/dist2/index.html',
+      defaultTitle: '百度15岁生日快乐',
+      title:  "百度15岁生日快乐！",
+      title1: '我用{{time}}秒点亮了百度15岁生日蜡烛，战胜了{{percent}}%的小伙伴！你也来试试，还能赢大奖哦！',
+      content: '快快来和熊孩子们一起为百度庆生吧！'
+    };
+
+    function onShareComplete() {
+      document.title = shareData.defaultTitle;
+    }
+
+    document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+          
+          WeixinJSBridge.on('menu:share:appmessage', function(argv) {
+              WeixinJSBridge.invoke('sendAppMessage', {
+                  "img_url": window.shareData.imgUrl,
+                  "link": window.shareData.link,
+                  "title": window.shareData.title,
+                  "desc": window.shareData.content
+              }, onShareComplete);
+          });
+
+          WeixinJSBridge.on('menu:share:timeline', function(argv) {
+              WeixinJSBridge.invoke('shareTimeline', {
+                  "img_url": window.shareData.imgUrl,
+                  "img_width": "100",
+                  "img_height": "100",
+                  "link": window.shareData.link,
+                  "desc": window.shareData.content,
+                  "title": window.shareData.title
+              }, onShareComplete);
+          });
+      }, false);</script> <script src=scripts/9d90182d.main.js></script>  
