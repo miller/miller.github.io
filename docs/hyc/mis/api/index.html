@@ -1,0 +1,3532 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>API Reference</title>
+
+    <link href="stylesheets/screen.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="stylesheets/print.css" rel="stylesheet" type="text/css" media="print" />
+    <script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
+      <script src="javascripts/all.js" type="text/javascript"></script>
+
+      <script>
+        $(function() {
+          setupLanguages(["http"]);
+        });
+      </script>
+  </head>
+
+  <body class="index">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="images/navbar.png" />
+      </span>
+    </a>
+    <div class="tocify-wrapper">
+      <div class="logo"><h2>会养车API - 后台版</h2></div>
+        <div class="lang-selector">
+              <a href="#" data-language-name="http">http</a>
+        </div>
+        <div class="search">
+          <input type="text" class="search" id="input-search" placeholder="Search">
+        </div>
+        <ul class="search-results"></ul>
+      <div id="toc">
+      </div>
+    </div>
+    <div class="page-wrapper">
+      <div class="dark-box"></div>
+      <div class="content">
+        <h1 id="会养车后台-api-介绍">会养车后台 API 介绍</h1>
+
+<p>以下为<a href="http://www.51hyc.com/admin">会养车后台</a> 所有接口说明。</p>
+
+<p>共性：</p>
+
+<ul>
+<li>统一采用 JSON 数据通信。</li>
+<li>统一采用 POST 方式请求。</li>
+<li><p>固定的数据返回格式：</p>
+
+<ul>
+<li><code class="prettyprint">error_code</code> 0 或者其他数字，当值为 0 时表示成功！</li>
+<li><code class="prettyprint">error_message</code> 信息说明，用来描述错误原因。</li>
+<li><code class="prettyprint">data</code> 数据体。</li>
+</ul></li>
+<li><p>固定的列表请求数据返回格式。</p>
+
+<ul>
+<li><code class="prettyprint">error_code</code> 0 或者其他数字，当值为 0 时表示成功！</li>
+<li><code class="prettyprint">error_message</code> 信息说明，用来描述错误原因。</li>
+<li><code class="prettyprint">data</code>
+
+<ul>
+<li><code class="prettyprint">pageInfo</code>
+
+<ul>
+<li><code class="prettyprint">alarmCount</code> 数据数目总数</li>
+<li><code class="prettyprint">currentPage</code> 当前页码</li>
+<li><code class="prettyprint">totalPage</code> 总页码</li>
+</ul></li>
+</ul></li>
+<li><code class="prettyprint">list</code>
+
+<ul>
+<li>数据体 1</li>
+<li>数据体 2</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<h1 id="登陆">登陆</h1>
+<pre><code class="highlight http"><span class="nf">POST</span> <span class="nn">/car/login</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">www.51hyc.com</span>
+<span class="s">{</span>
+<span class="s">  "userName": "user name",</span>
+<span class="s">  "password": "password"</span>
+<span class="s">}</span>
+</code></pre>
+<pre><code class="highlight http"><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="s">{</span>
+<span class="s">  "error_code": 0,</span>
+<span class="s">  "error_message": "成功",</span>
+<span class="s">  "data": {</span>
+<span class="s">    "userName": "user name",</span>
+<span class="s">    "password": "password",</span>
+<span class="s">    "roleName": "admin"</span>
+<span class="s">  }</span>
+<span class="s">}</span>
+</code></pre>
+
+<p>参数说明</p>
+
+<ul>
+<li><code class="prettyprint">userName</code> 用户名</li>
+<li><code class="prettyprint">password</code> 密码</li>
+</ul>
+
+<h1 id="商户信息">商户信息</h1>
+
+<h2 id="列表">列表</h2>
+<pre><code class="highlight http"><span class="nf">POST</span> <span class="nn">/car/providers/list</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">www.51hyc.com</span>
+<span class="s">{</span>
+<span class="s">  "pageNum": 1,</span>
+<span class="s">  "pageSize": 30,</span>
+<span class="s">  "sortField": "providerCode",</span>
+<span class="s">  "sortOrder": "asc",</span>
+<span class="s">  "word": "keywords"</span>
+<span class="s">}</span>
+</code></pre>
+
+<p><strong>请求参数说明</strong></p>
+
+<ul>
+<li><code class="prettyprint">pageNum</code> {Number} 指定页码</li>
+<li><code class="prettyprint">pageSize</code> {Number} 指定步长，即每页显示多少条数据。</li>
+<li><code class="prettyprint">sortField</code> {String} 指定排序字段名</li>
+<li><code class="prettyprint">sortOrder</code> {String} 指定排序顺序
+
+<ul>
+<li><code class="prettyprint">asc</code> 正序</li>
+<li><code class="prettyprint">desc</code> 倒序</li>
+</ul></li>
+<li><code class="prettyprint">word</code> 用于模糊搜索。</li>
+</ul>
+<pre><code class="highlight http"><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="s">{</span>
+<span class="s">    "data": {</span>
+<span class="s">        "list": [{</span>
+<span class="s">            "area": 232,</span>
+<span class="s">            "areaObject": {</span>
+<span class="s">                "area": "海淀其他",</span>
+<span class="s">                "city": "北京市",</span>
+<span class="s">                "district": "海淀区",</span>
+<span class="s">                "id": 232,</span>
+<span class="s">                "providerNum": 0</span>
+<span class="s">            },</span>
+<span class="s">            "bankaccountname": "北京嘉庆伟业汽车用品商行",</span>
+<span class="s">            "bankaccountnumber": "0404040103020005540",</span>
+<span class="s">            "bankbranchname": "北京农商银行四季青支行杏石路分理处",</span>
+<span class="s">            "bankname": "392",</span>
+<span class="s">            "businesscondition": "日均洗车（\u00A0）辆、日均车流量（\u00A0）辆、月均营业额（\u00A0）元",</span>
+<span class="s">            "cellphone": "13801164719",</span>
+<span class="s">            "chaintype": "美容装饰店",</span>
+<span class="s">            "collaboration": "",</span>
+<span class="s">            "commentNum": 0,</span>
+<span class="s">            "commercialtype": "单店直营",</span>
+<span class="s">            "creditrank": "3.5",</span>
+<span class="s">            "description": "嘉庆伟业在西郊雅森汽车用品城内，以美容装饰为主，该店贴膜很专业。店内环境整洁，老板很热情。不过店面在入口处，容易错过，车友需要多留意。",</span>
+<span class="s">            "distance": 0.00,</span>
+<span class="s">            "employeenumber": 15,</span>
+<span class="s">            "equipment": "",</span>
+<span class="s">            "hasSigning": 0,</span>
+<span class="s">            "id": 851,</span>
+<span class="s">            "iscompany": "1",</span>
+<span class="s">            "keyword": "打蜡;封釉",</span>
+<span class="s">            "latitude": 39.9535560,</span>
+<span class="s">            "logo": "1415444743187_4084.jpg",</span>
+<span class="s">            "logoDesc": "",</span>
+<span class="s">            "longitude": 116.2562830,</span>
+<span class="s">            "officetype": "专业市场",</span>
+<span class="s">            "opentime": "08:35-17:30",</span>
+<span class="s">            "personname": "骆庆明",</span>
+<span class="s">            "picDesc": "",</span>
+<span class="s">            "picture": "1415444748805_5010.jpg",</span>
+<span class="s">            "postcode": "100097",</span>
+<span class="s">            "priceAgreement": 0.00,</span>
+<span class="s">            "priceOrigin": 0.00,</span>
+<span class="s">            "providerAddress": "北京市海淀区杏石路55号雅森汽车用品城装饰街C1-206.207",</span>
+<span class="s">            "providerCode": "H110108-0001",</span>
+<span class="s">            "providerName": "嘉庆伟业汽车用品商行",</span>
+<span class="s">            "qq": "1349788100",</span>
+<span class="s">            "qualification": "",</span>
+<span class="s">            "servicedescription": "洗车;美容;装饰",</span>
+<span class="s">            "settlementday": "10",</span>
+<span class="s">            "shoptype": "两层门面",</span>
+<span class="s">            "telephone": "01088448507",</span>
+<span class="s">            "website": " ",</span>
+<span class="s">            "wechat": ""</span>
+<span class="s">        }],</span>
+<span class="s">        "pageInfo": {</span>
+<span class="s">            "alarmCount": 1,</span>
+<span class="s">            "currentPage": 1,</span>
+<span class="s">            "pageEndRow": 0,</span>
+<span class="s">            "pageSize": 0,</span>
+<span class="s">            "pageStartRow": 0,</span>
+<span class="s">            "totalPage": 1</span>
+<span class="s">        }</span>
+<span class="s">    },</span>
+<span class="s">    "error_code": 0,</span>
+<span class="s">    "error_message": "成功"</span>
+<span class="s">}</span>
+</code></pre>
+
+<p><strong>响应数据属性说明</strong></p>
+
+<p><strong>基本信息</strong></p>
+
+<ul>
+<li><code class="prettyprint">providercode</code> 商户编码</li>
+<li><code class="prettyprint">providerName</code> 商户名称</li>
+<li><code class="prettyprint">providerAddress</code> 商户地址</li>
+<li><code class="prettyprint">postcode</code> 邮编</li>
+<li><code class="prettyprint">area</code> {Number} 地区 <code class="prettyprint">id</code></li>
+<li><code class="prettyprint">areaObject</code> {Object}
+
+<ul>
+<li><code class="prettyprint">city</code> 城市如：“北京”</li>
+<li><code class="prettyprint">district</code> 城区如： “丰台区”</li>
+<li><code class="prettyprint">area</code> 地区 “方庄”</li>
+</ul></li>
+<li><code class="prettyprint">personname</code> 联系人</li>
+<li><code class="prettyprint">cellphone</code> 手机号码</li>
+<li><code class="prettyprint">telephone</code> 预约电话</li>
+<li><code class="prettyprint">wechat</code> 微信号</li>
+<li><code class="prettyprint">qq</code> QQ号</li>
+<li><code class="prettyprint">website</code> 商户网址</li>
+<li><code class="prettyprint">commercialtype</code> 经营类型: （单店直营、连锁直营、加盟品牌、其他）单选</li>
+<li><code class="prettyprint">chaintype</code> 商户性质: （洗车店、美容装饰店、汽车养护店、修理厂、4S店、其他）单选</li>
+<li><code class="prettyprint">officetype</code> 物业类型:（住宅区、写字楼、加油站内、商业中心、其他）单选</li>
+<li><code class="prettyprint">qualification</code> 具备资质:（营业执照、税务登记证、组织机构代码、修理行业资质）多选 用分号并列分隔</li>
+<li><code class="prettyprint">longitude</code> {Float} 商户GPS信息（经度)</li>
+<li><code class="prettyprint">latitude</code> {Float} 商户GPS信息（纬度）</li>
+<li><code class="prettyprint">keyword</code> 补充关键词（文字，多个词组可用分号分隔，用于补充店铺特色便于准确搜索）</li>
+<li><code class="prettyprint">collaboration</code> 现有合作平台（手工填写文字）</li>
+<li><code class="prettyprint">description</code> 商户介绍</li>
+<li><code class="prettyprint">logo</code> 商户Logo（图片地址）一张</li>
+<li><code class="prettyprint">logoDesc</code> Logo描述</li>
+<li><code class="prettyprint">picture</code> 商户图片地址（多张图片最多5张）</li>
+<li><code class="prettyprint">picDesc</code> 商户图片描述</li>
+</ul>
+
+<p><strong>结算信息</strong></p>
+
+<ul>
+<li><code class="prettyprint">settlementday</code> 结算日（从10-20日选择一天）</li>
+<li><code class="prettyprint">iscompany</code> 对公对私</li>
+<li><code class="prettyprint">bankaccountname</code> 公司<em>名称 | 个人</em>名称</li>
+<li><code class="prettyprint">bankaccountnumber</code> 公司<em>账号 | 个人</em>银行账号（数字）</li>
+<li><code class="prettyprint">bankname</code> 公司_银行行号（数字）</li>
+<li><code class="prettyprint">bankbranchname</code> 公司<em>开户行名称| 个人</em>开户行名称</li>
+</ul>
+
+<p><strong>店面信息</strong></p>
+
+<ul>
+<li><code class="prettyprint">opentime</code> 营业时间（格式HH:MM-HH:MM）</li>
+<li><code class="prettyprint">shoptype</code> 店面类型:（单层门面、两层门面、多层门面）单选</li>
+<li><code class="prettyprint">servicedescription</code> 服务类型（ 洗车、美容、装饰、改装、保养、快修、商品销售、车险服务、休息区、道路救援）多选 字符串用分号分隔开，上传，例如：洗车；美容；</li>
+<li><code class="prettyprint">employeenumber</code> 员工数目（数字）</li>
+<li><code class="prettyprint">businesscondition</code> 营业情况（日均洗车（留空格，填数字）辆、日均车流量（留空格，填数字）辆、月均营业额（留空格，填数字）元）字符串用分号分隔开，上传</li>
+<li><code class="prettyprint">equipment</code> 门店设备（洗车机、扒胎机、举升机、四轮定位设备、烤漆房、无尘贴膜车间）多选 字符串用分号分隔开，上传，例如：洗车；美容；</li>
+<li><code class="prettyprint">creditrank</code> 综合评分（0-5）含0.5分，十个档位</li>
+</ul>
+
+<h2 id="商户修改">商户修改</h2>
+<pre><code class="highlight http"><span class="nf">POST</span> <span class="nn">/car/providers/save</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">www.51hyc.com</span>
+<span class="s">{</span>
+<span class="s">    "id": 851,</span>
+<span class="s">    "area": 232,</span>
+<span class="s">    "bankaccountname": "北京嘉庆伟业汽车用品商行",</span>
+<span class="s">    "bankaccountnumber": "0404040103020005540",</span>
+<span class="s">    "bankbranchname": "北京农商银行四季青支行杏石路分理处",</span>
+<span class="s">    "bankname": "392",</span>
+<span class="s">    "businesscondition": "日均洗车（\u00A0）辆、日均车流量（\u00A0）辆、月均营业额（\u00A0）元",</span>
+<span class="s">    "cellphone": "13801164719",</span>
+<span class="s">    "chaintype": "美容装饰店",</span>
+<span class="s">    "collaboration": "",</span>
+<span class="s">    "commercialtype": "单店直营",</span>
+<span class="s">    "creditrank": "3.5",</span>
+<span class="s">    "description": "        嘉庆伟业在西郊雅森汽车用品城内，以美容装饰为主，该店贴膜很专业。店内环境整洁，老板很热情。不过店面在入口处，容易错过，车友需要多留意。",</span>
+<span class="s">    "employeenumber": 15,</span>
+<span class="s">    "equipment": "",</span>
+<span class="s">    "hasSigning": 1,</span>
+<span class="s">    "iscompany": "1",</span>
+<span class="s">    "keyword": "打蜡;封釉;内饰;镀膜;贴膜;胎;玻璃;奥迪;宝骏;宝马;保时捷;北京汽车;奔驰;奔腾;本田;比亚迪;标致;别克;长安;长城;DS;大众;道奇;东风风神;东风风行;东南;菲亚特;丰田;福特;福田;广汽传祺;广汽吉奥;哈弗;海马;华泰;Jeep;吉利汽车;江淮;捷豹;凯迪拉克;雷克萨斯;雷诺;理念;力帆;铃木;路虎;MG;MINI;马自达;纳智捷;讴歌;欧朗;奇瑞;启辰;起亚;日产;荣威;瑞麒;smart;三菱;双龙;思铭;斯巴鲁;斯柯达;威麟;沃尔沃;西雅特;现代;雪佛兰;雪铁龙;一汽;英菲尼迪;中华;中兴;众泰",</span>
+<span class="s">    "latitude": "39.9535560",</span>
+<span class="s">    "logo": "1415444743187_4084.jpg",</span>
+<span class="s">    "logoDesc": "",</span>
+<span class="s">    "longitude": "116.2562830",</span>
+<span class="s">    "officetype": "专业市场",</span>
+<span class="s">    "opentime": "08:35-17:30",</span>
+<span class="s">    "personname": "骆庆明",</span>
+<span class="s">    "picDesc": "",</span>
+<span class="s">    "picture": "1415444748805_5010.jpg",</span>
+<span class="s">    "postcode": "100097",</span>
+<span class="s">    "providerAddress": "北京市海淀区杏石路55号雅森汽车用品城装饰街C1-206.207",</span>
+<span class="s">    "providerCode": "H110108-0001",</span>
+<span class="s">    "providerName": "嘉庆伟业汽车用品商行",</span>
+<span class="s">    "qq": "1349788100",</span>
+<span class="s">    "qualification": "",</span>
+<span class="s">    "servicedescription": "洗车;美容;装饰",</span>
+<span class="s">    "settlementday": "10",</span>
+<span class="s">    "shoptype": "两层门面",</span>
+<span class="s">    "telephone": "01088448507",</span>
+<span class="s">    "website": " ",</span>
+<span class="s">    "wechat": ""</span>
+<span class="s">}</span>
+</code></pre>
+<pre><code class="highlight http"><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="s">{</span>
+<span class="s">    "data": {</span>
+<span class="s">        ...</span>
+<span class="s">    },</span>
+<span class="s">    "error_code": 0,</span>
+<span class="s">    "error_message": "成功"</span>
+<span class="s">}</span>
+</code></pre>
+
+<aside class="notice">
+包括添加和更新操作，当传入 id 值时，为更新操作，否则为添加操作。
+</aside>
+
+<p><strong>基本信息</strong></p>
+
+<ul>
+<li><code class="prettyprint">id</code> 商户ID</li>
+<li><code class="prettyprint">providercode</code> 商户编码</li>
+<li><code class="prettyprint">providerName</code> 商户名称</li>
+<li><code class="prettyprint">providerAddress</code> 商户地址</li>
+<li><code class="prettyprint">postcode</code> 邮编</li>
+<li><code class="prettyprint">area</code> {Number} 地区 <code class="prettyprint">id</code></li>
+<li><code class="prettyprint">personname</code> 联系人</li>
+<li><code class="prettyprint">cellphone</code> 手机号码</li>
+<li><code class="prettyprint">telephone</code> 预约电话</li>
+<li><code class="prettyprint">wechat</code> 微信号</li>
+<li><code class="prettyprint">qq</code> QQ号</li>
+<li><code class="prettyprint">website</code> 商户网址</li>
+<li><code class="prettyprint">commercialtype</code> 经营类型: （单店直营、连锁直营、加盟品牌、其他）单选</li>
+<li><code class="prettyprint">chaintype</code> 商户性质: （洗车店、美容装饰店、汽车养护店、修理厂、4S店、其他）单选</li>
+<li><code class="prettyprint">officetype</code> 物业类型:（住宅区、写字楼、加油站内、商业中心、其他）单选</li>
+<li><code class="prettyprint">qualification</code> 具备资质:（营业执照、税务登记证、组织机构代码、修理行业资质）多选 用分号并列分隔</li>
+<li><code class="prettyprint">longitude</code> {Float} 商户GPS信息（经度)</li>
+<li><code class="prettyprint">latitude</code> {Float} 商户GPS信息（纬度）</li>
+<li><code class="prettyprint">keyword</code> 补充关键词（文字，多个词组可用分号分隔，用于补充店铺特色便于准确搜索）</li>
+<li><code class="prettyprint">collaboration</code> 现有合作平台（手工填写文字）</li>
+<li><code class="prettyprint">description</code> 商户介绍</li>
+<li><code class="prettyprint">logo</code> 商户Logo（图片地址）一张</li>
+<li><code class="prettyprint">logoDesc</code> Logo描述</li>
+<li><code class="prettyprint">picture</code> 商户图片地址（多张图片最多5张）</li>
+<li><code class="prettyprint">picDesc</code> 商户图片描述</li>
+</ul>
+
+<p><strong>结算信息</strong></p>
+
+<ul>
+<li><code class="prettyprint">settlementday</code> 结算日（从10-20日选择一天）</li>
+<li><code class="prettyprint">iscompany</code> 对公对私</li>
+<li><code class="prettyprint">bankaccountname</code> 公司<em>名称 | 个人</em>名称</li>
+<li><code class="prettyprint">bankaccountnumber</code> 公司<em>账号 | 个人</em>银行账号（数字）</li>
+<li><code class="prettyprint">bankname</code> 公司_银行行号（数字）</li>
+<li><code class="prettyprint">bankbranchname</code> 公司<em>开户行名称| 个人</em>开户行名称</li>
+</ul>
+
+<p><strong>店面信息</strong></p>
+
+<ul>
+<li><code class="prettyprint">opentime</code> 营业时间（格式HH:MM-HH:MM）</li>
+<li><code class="prettyprint">shoptype</code> 店面类型:（单层门面、两层门面、多层门面）单选</li>
+<li><code class="prettyprint">servicedescription</code> 服务类型（ 洗车、美容、装饰、改装、保养、快修、商品销售、车险服务、休息区、道路救援）多选 字符串用分号分隔开，上传，例如：洗车；美容；</li>
+<li><code class="prettyprint">employeenumber</code> 员工数目（数字）</li>
+<li><code class="prettyprint">businesscondition</code> 营业情况（日均洗车（留空格，填数字）辆、日均车流量（留空格，填数字）辆、月均营业额（留空格，填数字）元）字符串用分号分隔开，上传</li>
+<li><code class="prettyprint">equipment</code> 门店设备（洗车机、扒胎机、举升机、四轮定位设备、烤漆房、无尘贴膜车间）多选 字符串用分号分隔开，上传，例如：洗车；美容；</li>
+<li><code class="prettyprint">creditrank</code> 综合评分（0-5）含0.5分，十个档位</li>
+</ul>
+
+<h2 id="商户删除">商户删除</h2>
+<pre><code class="highlight http"><span class="nf">POST</span> <span class="nn">/car/providers/delete</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">www.51hyc.com</span>
+<span class="s">[1, 2, 3]</span>
+</code></pre>
+<pre><code class="highlight http"><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="s">{</span>
+<span class="s">    "data": {},</span>
+<span class="s">    "error_code": 0,</span>
+<span class="s">    "error_message": "成功"</span>
+<span class="s">}</span>
+</code></pre>
+
+<p>通过数组方式指定id来删除记录。</p>
+
+<h2 id="商户具体服务修改">商户具体服务修改</h2>
+<pre><code class="highlight http"><span class="nf">POST</span> <span class="nn">/car/providerproducts/save</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">www.51hyc.com</span>
+<span class="s">{</span>
+<span class="s">    "description": "{\"备注\":\"\"}",</span>
+<span class="s">    "priceAgreement": -1,</span>
+<span class="s">    "priceOrigin": -1,</span>
+<span class="s">    "providerId": 593156,</span>
+<span class="s">    "serviceId": 50</span>
+<span class="s">}</span>
+</code></pre>
+<pre><code class="highlight http"><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="s">{</span>
+<span class="s">    "data": {</span>
+<span class="s">      ...</span>
+<span class="s">    },</span>
+<span class="s">    "error_code": 0,</span>
+<span class="s">    "error_message": "成功"</span>
+<span class="s">}</span>
+</code></pre>
+
+<p>参数说明</p>
+
+<ul>
+<li><code class="prettyprint">providerId</code> <em>必填</em> 商户 id</li>
+<li><code class="prettyprint">serviceId</code> <em>必填</em> 服务 ID</li>
+<li><code class="prettyprint">priceAgreement</code> 协议价</li>
+<li><code class="prettyprint">priceOrigin</code> 现金价（原价）</li>
+<li><code class="prettyprint">name</code> 品牌名称</li>
+<li><code class="prettyprint">type</code> 类型 0: 单一服务， 1： 套餐， 2: 工时</li>
+<li><code class="prettyprint">packageList</code> 套餐数据 用来存储 <code class="prettyprint">机油品牌</code>、<code class="prettyprint">机油升数</code>、<code class="prettyprint">机滤品牌</code> 数据。</li>
+<li><p><code class="prettyprint">process</code> JSON 格式，用来存储服务流程说明信息。</p>
+
+<p><code class="prettyprint">[{pic: &#39;图片地址1&#39;, desc: &#39;图片描述&#39;}, ...]</code></p></li>
+<li><p><code class="prettyprint">zidaijian</code> 是否自带件。</p></li>
+<li><p><code class="prettyprint">telephone</code> 救援电话</p></li>
+<li><p><code class="prettyprint">description</code> 用来存储其他字段。JSON 格式。</p></li>
+</ul>
+
+<h2 id="商户具体流程管理">商户具体流程管理</h2>
+
+<p>请参考<a href="#商户具体服务修改">商户具体服务修改</a>, 使用相同 API</p>
+
+<h2 id="商户商品列表">商户商品列表</h2>
+<pre><code class="highlight http"><span class="nf">POST</span> <span class="nn">/car/products/list</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">www.51hyc.com</span>
+<span class="s">{</span>
+<span class="s">  "pageNum": 1,</span>
+<span class="s">  "pageSize": 30</span>
+<span class="s">}</span>
+</code></pre>
+<pre><code class="highlight http"><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="s">{</span>
+<span class="s">    "data": {</span>
+<span class="s">        "list": [</span>
+<span class="s">          {</span>
+<span class="s">              "id": 593134,</span>
+<span class="s">              "pic": "1418803935610_7440.jpg",</span>
+<span class="s">              "providerid": 593156,</span>
+<span class="s">              "title": "店外详情"</span>
+<span class="s">          },</span>
+<span class="s">          ...</span>
+<span class="s">        ],</span>
+<span class="s">        "pageInfo": {</span>
+<span class="s">            "alarmCount": 1,</span>
+<span class="s">            "currentPage": 1,</span>
+<span class="s">            "pageEndRow": 0,</span>
+<span class="s">            "pageSize": 0,</span>
+<span class="s">            "pageStartRow": 0,</span>
+<span class="s">            "totalPage": 1</span>
+<span class="s">        }</span>
+<span class="s">    },</span>
+<span class="s">    "error_code": 0,</span>
+<span class="s">    "error_message": "成功"</span>
+<span class="s">}</span>
+</code></pre>
+
+<p><strong>请求参数说明</strong></p>
+
+<ul>
+<li><code class="prettyprint">pageNum</code> {Number} 指定页码</li>
+<li><code class="prettyprint">pageSize</code> {Number} 指定步长，即每页显示多少条数据。</li>
+</ul>
+
+<p><strong>商品字段描述</strong></p>
+
+<ul>
+<li><code class="prettyprint">id</code> 商品 id</li>
+<li><code class="prettyprint">pic</code> 商品图片</li>
+<li><code class="prettyprint">providerid</code> 商户ID</li>
+<li><code class="prettyprint">title</code> 商品名称</li>
+</ul>
+
+<h2 id="商户商品保存">商户商品保存</h2>
+<pre><code class="highlight http"><span class="nf">POST</span> <span class="nn">/car/products/save</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">www.51hyc.com</span>
+<span class="s">{</span>
+<span class="s">    "id": 593134,</span>
+<span class="s">    "pic": "1418803935610_7440.jpg",</span>
+<span class="s">    "providerid": 593156,</span>
+<span class="s">    "title": "店外详情"</span>
+<span class="s">}</span>
+</code></pre>
+<pre><code class="highlight http"><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="s">{</span>
+<span class="s">    "data": {</span>
+<span class="s">        ...</span>
+<span class="s">    },</span>
+<span class="s">    "error_code": 0,</span>
+<span class="s">    "error_message": "成功"</span>
+<span class="s">}</span>
+</code></pre>
+
+<aside class="notice">
+包括添加和更新操作，当传入 id 值时，为更新操作，否则为添加操作。
+</aside>
+
+<p><strong>商品字段描述</strong></p>
+
+<ul>
+<li><code class="prettyprint">id</code> 商品 id</li>
+<li><code class="prettyprint">pic</code> 商品图片</li>
+<li><code class="prettyprint">providerid</code> 商户ID</li>
+<li><code class="prettyprint">title</code> 商品名称</li>
+</ul>
+
+<h2 id="商户商品删除">商户商品删除</h2>
+<pre><code class="highlight http"><span class="nf">POST</span> <span class="nn">/car/products/delete</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">www.51hyc.com</span>
+<span class="s">[1, 2, 3]</span>
+</code></pre>
+<pre><code class="highlight http"><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="s">{</span>
+<span class="s">    "data": {},</span>
+<span class="s">    "error_code": 0,</span>
+<span class="s">    "error_message": "成功"</span>
+<span class="s">}</span>
+</code></pre>
+
+<p>通过数组方式指定id来删除记录。</p>
+
+<h2 id="商户评论列表">商户评论列表</h2>
+<pre><code class="highlight http"><span class="nf">POST</span> <span class="nn">/car/comments/list</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">www.51hyc.com</span>
+<span class="s">{</span>
+<span class="s">  "pageNum": 1,</span>
+<span class="s">  "pageSize": 30,</span>
+<span class="s">  "search": {</span>
+<span class="s">    "providerId":593156</span>
+<span class="s">  },</span>
+<span class="s">  "sortField": "providerName",</span>
+<span class="s">  "sortOrder":"asc"</span>
+<span class="s">}</span>
+</code></pre>
+<pre><code class="highlight http"><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="s">{</span>
+<span class="s">    "data": {</span>
+<span class="s">        "list": [</span>
+<span class="s">          {</span>
+<span class="s">              ...</span>
+<span class="s">          },</span>
+<span class="s">          ...</span>
+<span class="s">        ],</span>
+<span class="s">        "pageInfo": {</span>
+<span class="s">            "alarmCount": 1,</span>
+<span class="s">            "currentPage": 1,</span>
+<span class="s">            "pageEndRow": 0,</span>
+<span class="s">            "pageSize": 0,</span>
+<span class="s">            "pageStartRow": 0,</span>
+<span class="s">            "totalPage": 1</span>
+<span class="s">        }</span>
+<span class="s">    },</span>
+<span class="s">    "error_code": 0,</span>
+<span class="s">    "error_message": "成功"</span>
+<span class="s">}</span>
+</code></pre>
+
+<p><strong>请求参数说明</strong></p>
+
+<ul>
+<li><code class="prettyprint">pageNum</code> {Number} 指定页码</li>
+<li><code class="prettyprint">pageSize</code> {Number} 指定步长，即每页显示多少条数据。</li>
+<li><code class="prettyprint">search</code> {Object}
+
+<ul>
+<li><code class="prettyprint">providerId</code> 指定商户 ID</li>
+</ul></li>
+<li><code class="prettyprint">sortField</code> {String} 指定排序字段名</li>
+<li><code class="prettyprint">sortOrder</code> {String} 指定排序顺序
+
+<ul>
+<li><code class="prettyprint">asc</code> 正序</li>
+<li><code class="prettyprint">desc</code> 倒序</li>
+</ul></li>
+</ul>
+
+<p><strong>评论字段说明</strong></p>
+
+<ul>
+<li><code class="prettyprint">id</code> 评论 ID</li>
+<li><code class="prettyprint">providerId</code> 商户ID</li>
+<li><code class="prettyprint">providerName</code> 商户名称</li>
+<li><code class="prettyprint">serviceProductId</code> 具体服务ID</li>
+<li><code class="prettyprint">serviceProductName</code> 服务名称</li>
+<li><code class="prettyprint">serviceProductPrice</code> 服务价格</li>
+<li><code class="prettyprint">consumerId</code> 用户Id</li>
+<li><code class="prettyprint">content</code> 评价内容</li>
+<li><code class="prettyprint">markpoint</code> 评分</li>
+<li><code class="prettyprint">image</code> 图片地址</li>
+<li><code class="prettyprint">createTime</code> 评价时间</li>
+<li><code class="prettyprint">orderId</code> 相关订单号</li>
+<li><code class="prettyprint">consumerName</code> 用户名称</li>
+<li><code class="prettyprint">consumerIcon</code> 用户头像</li>
+</ul>
+
+<h1 id="汽车数据">汽车数据</h1>
+
+<h2 id="品牌列表">品牌列表</h2>
+<pre><code class="highlight http"><span class="nf">POST</span> <span class="nn">/car/brands/list</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">www.51hyc.com</span>
+<span class="s">{</span>
+<span class="s">  "pageNum": 1,</span>
+<span class="s">  "pageSize": 30,</span>
+<span class="s">  "sortField": "providerName",</span>
+<span class="s">  "sortOrder":"asc",</span>
+<span class="s">  "word": "keywords"</span>
+<span class="s">}</span>
+</code></pre>
+<pre><code class="highlight http"><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="s">{</span>
+<span class="s">    "data": {</span>
+<span class="s">        "list": [</span>
+<span class="s">          {</span>
+<span class="s">              "id": 521,</span>
+<span class="s">              "logo": "1413942768236_1881.png",</span>
+<span class="s">              "series": "1",</span>
+<span class="s">              "title": "福特"</span>
+<span class="s">          },</span>
+<span class="s">          ...</span>
+<span class="s">        ],</span>
+<span class="s">        "pageInfo": {</span>
+<span class="s">            "alarmCount": 1,</span>
+<span class="s">            "currentPage": 1,</span>
+<span class="s">            "pageEndRow": 0,</span>
+<span class="s">            "pageSize": 0,</span>
+<span class="s">            "pageStartRow": 0,</span>
+<span class="s">            "totalPage": 1</span>
+<span class="s">        }</span>
+<span class="s">    },</span>
+<span class="s">    "error_code": 0,</span>
+<span class="s">    "error_message": "成功"</span>
+<span class="s">}</span>
+</code></pre>
+
+<p><strong>请求参数说明</strong></p>
+
+<ul>
+<li><code class="prettyprint">pageNum</code> {Number} 指定页码</li>
+<li><code class="prettyprint">pageSize</code> {Number} 指定步长，即每页显示多少条数据。</li>
+<li><code class="prettyprint">sortField</code> {String} 指定排序字段名</li>
+<li><code class="prettyprint">sortOrder</code> {String} 指定排序顺序
+
+<ul>
+<li><code class="prettyprint">asc</code> 正序</li>
+<li><code class="prettyprint">desc</code> 倒序</li>
+</ul></li>
+<li><code class="prettyprint">word</code> 用于模糊搜索。</li>
+</ul>
+
+<p><strong>品牌字段说明</strong></p>
+
+<ul>
+<li><code class="prettyprint">id</code> 品牌 ID</li>
+<li><code class="prettyprint">logo</code> 品牌图标</li>
+<li><code class="prettyprint">title</code> 品牌名称</li>
+<li><code class="prettyprint">series</code> 所属车系
+
+<ul>
+<li><code class="prettyprint">1</code>: 美系</li>
+<li><code class="prettyprint">2</code>: 日系</li>
+<li><code class="prettyprint">3</code>: 德系</li>
+<li><code class="prettyprint">4</code>: 韩系</li>
+<li><code class="prettyprint">5</code>:</li>
+<li><code class="prettyprint">6</code>: 自主</li>
+<li><code class="prettyprint">7</code>: 欧系其它</li>
+</ul></li>
+</ul>
+
+<h2 id="品牌修改">品牌修改</h2>
+<pre><code class="highlight http"><span class="nf">POST</span> <span class="nn">/car/brands/save</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">www.51hyc.com</span>
+<span class="s">{</span>
+<span class="s">    "id": 521,</span>
+<span class="s">    "logo": "1413942768236_1881.png",</span>
+<span class="s">    "series": "1",</span>
+<span class="s">    "title": "福特"</span>
+<span class="s">}</span>
+</code></pre>
+<pre><code class="highlight http"><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="s">{</span>
+<span class="s">    "data": {</span>
+<span class="s">        ...</span>
+<span class="s">    },</span>
+<span class="s">    "error_code": 0,</span>
+<span class="s">    "error_message": "成功"</span>
+<span class="s">}</span>
+</code></pre>
+
+<aside class="notice">
+包括添加和更新操作，当传入 id 值时，为更新操作，否则为添加操作。
+</aside>
+
+<p><strong>字段描述</strong></p>
+
+<ul>
+<li><code class="prettyprint">id</code> 品牌 ID</li>
+<li><code class="prettyprint">logo</code> 品牌图标</li>
+<li><code class="prettyprint">title</code> 品牌名称</li>
+<li><code class="prettyprint">series</code> 所属车系
+
+<ul>
+<li><code class="prettyprint">1</code>: 美系</li>
+<li><code class="prettyprint">2</code>: 日系</li>
+<li><code class="prettyprint">3</code>: 德系</li>
+<li><code class="prettyprint">4</code>: 韩系</li>
+<li><code class="prettyprint">5</code>:</li>
+<li><code class="prettyprint">6</code>: 自主</li>
+<li><code class="prettyprint">7</code>: 欧系其它</li>
+</ul></li>
+</ul>
+
+<h2 id="品牌删除">品牌删除</h2>
+<pre><code class="highlight http"><span class="nf">POST</span> <span class="nn">/car/brands/delete</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">www.51hyc.com</span>
+<span class="s">[1, 2, 3]</span>
+</code></pre>
+<pre><code class="highlight http"><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="s">{</span>
+<span class="s">    "data": {},</span>
+<span class="s">    "error_code": 0,</span>
+<span class="s">    "error_message": "成功"</span>
+<span class="s">}</span>
+</code></pre>
+
+<p>通过数组方式指定id来删除记录。</p>
+
+<h2 id="车系列表">车系列表</h2>
+<pre><code class="highlight http"><span class="nf">POST</span> <span class="nn">/car/series/list</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">www.51hyc.com</span>
+<span class="s">{</span>
+<span class="s">  "pageNum": 1,</span>
+<span class="s">  "pageSize": 30,</span>
+<span class="s">  "sortField": "providerName",</span>
+<span class="s">  "sortOrder":"asc",</span>
+<span class="s">  "word": "keywords",</span>
+<span class="s">  "search": {</span>
+<span class="s">    "brandId": 202</span>
+<span class="s">  }</span>
+<span class="s">}</span>
+</code></pre>
+<pre><code class="highlight http"><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="s">{</span>
+<span class="s">    "data": {</span>
+<span class="s">        "list": [</span>
+<span class="s">          {</span>
+<span class="s">              "brandId": 202,</span>
+<span class="s">              "id": 601,</span>
+<span class="s">              "title": "A4L"</span>
+<span class="s">          },</span>
+<span class="s">          ...</span>
+<span class="s">        ],</span>
+<span class="s">        "pageInfo": {</span>
+<span class="s">            "alarmCount": 1,</span>
+<span class="s">            "currentPage": 1,</span>
+<span class="s">            "pageEndRow": 0,</span>
+<span class="s">            "pageSize": 0,</span>
+<span class="s">            "pageStartRow": 0,</span>
+<span class="s">            "totalPage": 1</span>
+<span class="s">        }</span>
+<span class="s">    },</span>
+<span class="s">    "error_code": 0,</span>
+<span class="s">    "error_message": "成功"</span>
+<span class="s">}</span>
+</code></pre>
+
+<p><strong>请求参数说明</strong></p>
+
+<ul>
+<li><code class="prettyprint">pageNum</code> {Number} 指定页码</li>
+<li><code class="prettyprint">pageSize</code> {Number} 指定步长，即每页显示多少条数据。</li>
+<li><code class="prettyprint">sortField</code> {String} 指定排序字段名</li>
+<li><code class="prettyprint">sortOrder</code> {String} 指定排序顺序
+
+<ul>
+<li><code class="prettyprint">asc</code> 正序</li>
+<li><code class="prettyprint">desc</code> 倒序</li>
+</ul></li>
+<li><code class="prettyprint">word</code> 用于模糊搜索。</li>
+<li><code class="prettyprint">search</code> {Object} 条件过滤
+
+<ul>
+<li><code class="prettyprint">brandId</code> {Number} 指定品牌 ID</li>
+</ul></li>
+</ul>
+
+<p><strong>字段说明</strong></p>
+
+<ul>
+<li><code class="prettyprint">id</code> 车系 ID</li>
+<li><code class="prettyprint">brandId</code> 品牌 ID</li>
+<li><code class="prettyprint">title</code> 名称</li>
+</ul>
+
+<h2 id="车系修改">车系修改</h2>
+<pre><code class="highlight http"><span class="nf">POST</span> <span class="nn">/car/series/save</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">www.51hyc.com</span>
+<span class="s">{</span>
+<span class="s">    "brandId": 202,</span>
+<span class="s">    "id": 601,</span>
+<span class="s">    "title": "A4L"</span>
+<span class="s">}</span>
+</code></pre>
+<pre><code class="highlight http"><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="s">{</span>
+<span class="s">    "data": {</span>
+<span class="s">        ...</span>
+<span class="s">    },</span>
+<span class="s">    "error_code": 0,</span>
+<span class="s">    "error_message": "成功"</span>
+<span class="s">}</span>
+</code></pre>
+
+<aside class="notice">
+包括添加和更新操作，当传入 id 值时，为更新操作，否则为添加操作。
+</aside>
+
+<p><strong>字段说明</strong></p>
+
+<ul>
+<li><code class="prettyprint">id</code> 车系 ID</li>
+<li><code class="prettyprint">brandId</code> 品牌 ID</li>
+<li><code class="prettyprint">title</code> 名称</li>
+</ul>
+
+<h2 id="车系删除">车系删除</h2>
+<pre><code class="highlight http"><span class="nf">POST</span> <span class="nn">/car/series/delete</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">www.51hyc.com</span>
+<span class="s">[1, 2, 3]</span>
+</code></pre>
+<pre><code class="highlight http"><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="s">{</span>
+<span class="s">    "data": {},</span>
+<span class="s">    "error_code": 0,</span>
+<span class="s">    "error_message": "成功"</span>
+<span class="s">}</span>
+</code></pre>
+
+<p>通过数组方式指定id来删除记录。</p>
+
+<h2 id="车型列表">车型列表</h2>
+<pre><code class="highlight http"><span class="nf">POST</span> <span class="nn">/car/cartypes/list</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">www.51hyc.com</span>
+<span class="s">{</span>
+<span class="s">  "pageNum": 1,</span>
+<span class="s">  "pageSize": 30,</span>
+<span class="s">  "sortField": "providerName",</span>
+<span class="s">  "sortOrder":"asc",</span>
+<span class="s">  "word": "keywords",</span>
+<span class="s">  "search": {</span>
+<span class="s">    "seriesId": 601</span>
+<span class="s">  },</span>
+<span class="s">  "otherSearch": {</span>
+<span class="s">    "brandId": 501</span>
+<span class="s">  }</span>
+<span class="s">}</span>
+</code></pre>
+<pre><code class="highlight http"><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="s">{</span>
+<span class="s">    "data": {</span>
+<span class="s">        "list": [</span>
+<span class="s">            {</span>
+<span class="s">              "auto": false,</span>
+<span class="s">              "brandLogo": "1413942283838_4162.png",</span>
+<span class="s">              "brandName": "奥迪",</span>
+<span class="s">              "datetime": 2013,</span>
+<span class="s">              "discharge": "1.8T ",</span>
+<span class="s">              "firstMileage": 7500,</span>
+<span class="s">              "firstMonth": 6,</span>
+<span class="s">              "id": 651,</span>
+<span class="s">              "intervalMileage": 7500,</span>
+<span class="s">              "intervalMonth": 6,</span>
+<span class="s">              "secondMileage": 0,</span>
+<span class="s">              "secondMonth": 0,</span>
+<span class="s">              "seriesId": 601,</span>
+<span class="s">              "seriesName": "A4L",</span>
+<span class="s">              "title": "2013款 30 TFSI （1.8T 涡轮增压 ）L4  手动"</span>
+<span class="s">          },</span>
+<span class="s">          ...</span>
+<span class="s">        ],</span>
+<span class="s">        "pageInfo": {</span>
+<span class="s">            "alarmCount": 1,</span>
+<span class="s">            "currentPage": 1,</span>
+<span class="s">            "pageEndRow": 0,</span>
+<span class="s">            "pageSize": 0,</span>
+<span class="s">            "pageStartRow": 0,</span>
+<span class="s">            "totalPage": 1</span>
+<span class="s">        }</span>
+<span class="s">    },</span>
+<span class="s">    "error_code": 0,</span>
+<span class="s">    "error_message": "成功"</span>
+<span class="s">}</span>
+</code></pre>
+
+<p><strong>请求参数说明</strong></p>
+
+<ul>
+<li><code class="prettyprint">pageNum</code> {Number} 指定页码</li>
+<li><code class="prettyprint">pageSize</code> {Number} 指定步长，即每页显示多少条数据。</li>
+<li><code class="prettyprint">sortField</code> {String} 指定排序字段名</li>
+<li><code class="prettyprint">sortOrder</code> {String} 指定排序顺序
+
+<ul>
+<li><code class="prettyprint">asc</code> 正序</li>
+<li><code class="prettyprint">desc</code> 倒序</li>
+</ul></li>
+<li><code class="prettyprint">word</code> 用于模糊搜索。</li>
+<li><code class="prettyprint">search</code> {Object} 条件过滤
+
+<ul>
+<li><code class="prettyprint">seriesId</code> {Number} 指定车系 ID</li>
+</ul></li>
+<li><code class="prettyprint">otherSearch</code> {Object} 条件过滤
+
+<ul>
+<li><code class="prettyprint">brandId</code> {String} 指定品牌 ID</li>
+</ul></li>
+</ul>
+
+<p><strong>字段说明</strong></p>
+
+<ul>
+<li><code class="prettyprint">id</code> 车型 ID</li>
+<li><code class="prettyprint">auto</code> 是否为自动挡</li>
+<li><code class="prettyprint">seriesId</code> 系列ID</li>
+<li><code class="prettyprint">title</code> 车型名称</li>
+<li><code class="prettyprint">discharge</code> 车型排量输入为（1.8,2.4）</li>
+<li><code class="prettyprint">datetime</code> 发布时间</li>
+<li><code class="prettyprint">firstMileage</code> 首保公里数</li>
+<li><code class="prettyprint">firstMonth</code> 首保月份</li>
+<li><code class="prettyprint">secondMileage</code> 二保公里数</li>
+<li><code class="prettyprint">secondMonth</code> 二保月份</li>
+<li><code class="prettyprint">intervalMileage</code> 保养间隔公里数</li>
+<li><code class="prettyprint">intervalMonth</code> 保养间隔月份</li>
+</ul>
+
+<h2 id="车型修改">车型修改</h2>
+<pre><code class="highlight http"><span class="nf">POST</span> <span class="nn">/car/cartypes/save</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">www.51hyc.com</span>
+<span class="s">{</span>
+<span class="s">    "auto": false,</span>
+<span class="s">    "datetime": 2013,</span>
+<span class="s">    "discharge": "1.8T ",</span>
+<span class="s">    "id": 651,</span>
+<span class="s">    "seriesId": 601,</span>
+<span class="s">    "title": "2013款 30 TFSI （1.8T 涡轮增压 ）L4  手动"</span>
+<span class="s">}</span>
+</code></pre>
+<pre><code class="highlight http"><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="s">{</span>
+<span class="s">    "data": {</span>
+<span class="s">        ...</span>
+<span class="s">    },</span>
+<span class="s">    "error_code": 0,</span>
+<span class="s">    "error_message": "成功"</span>
+<span class="s">}</span>
+</code></pre>
+
+<aside class="notice">
+包括添加和更新操作，当传入 id 值时，为更新操作，否则为添加操作。
+</aside>
+
+<p><strong>字段说明</strong></p>
+
+<ul>
+<li><code class="prettyprint">id</code> 车型 ID</li>
+<li><code class="prettyprint">auto</code> 是否为自动挡</li>
+<li><code class="prettyprint">seriesId</code> 系列ID</li>
+<li><code class="prettyprint">title</code> 车型名称</li>
+<li><code class="prettyprint">discharge</code> 车型排量输入为（1.8,2.4）</li>
+<li><code class="prettyprint">datetime</code> 发布时间</li>
+<li><code class="prettyprint">firstMileage</code> 首保公里数</li>
+<li><code class="prettyprint">firstMonth</code> 首保月份</li>
+<li><code class="prettyprint">secondMileage</code> 二保公里数</li>
+<li><code class="prettyprint">secondMonth</code> 二保月份</li>
+<li><code class="prettyprint">intervalMileage</code> 保养间隔公里数</li>
+<li><code class="prettyprint">intervalMonth</code> 保养间隔月份</li>
+</ul>
+
+<h2 id="车型删除">车型删除</h2>
+<pre><code class="highlight http"><span class="nf">POST</span> <span class="nn">/car/cartypes/delete</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">www.51hyc.com</span>
+<span class="s">[1, 2, 3]</span>
+</code></pre>
+<pre><code class="highlight http"><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="s">{</span>
+<span class="s">    "data": {},</span>
+<span class="s">    "error_code": 0,</span>
+<span class="s">    "error_message": "成功"</span>
+<span class="s">}</span>
+</code></pre>
+
+<p>通过数组方式指定id来删除记录。</p>
+
+<h2 id="保存保养数据">保存保养数据</h2>
+<pre><code class="highlight http"><span class="nf">POST</span> <span class="nn">/car/maintenances/jsonArray</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">www.51hyc.com</span>
+<span class="s">[</span>
+<span class="s">  {</span>
+<span class="s">    "brand": ";金装美孚1号全合成机油",</span>
+<span class="s">    "carTypeId": 651,</span>
+<span class="s">    "km": 7500,</span>
+<span class="s">    "month": 6,</span>
+<span class="s">    "need": true,</span>
+<span class="s">    "serviceId": 12</span>
+<span class="s">  },</span>
+<span class="s">  ...</span>
+<span class="s">]</span>
+</code></pre>
+<pre><code class="highlight http"><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="s">{</span>
+<span class="s">    "data": {},</span>
+<span class="s">    "error_code": 0,</span>
+<span class="s">    "error_message": "成功"</span>
+<span class="s">}</span>
+</code></pre>
+
+<p><strong>字段说明</strong></p>
+
+<ul>
+<li><code class="prettyprint">brand</code> {String} 品牌。当关联的服务为 <code class="prettyprint">更换机油和机滤</code> 时，同时保存机油和机滤品牌信息，并以 <code class="prettyprint">;</code> 隔开。</li>
+<li><code class="prettyprint">carTypeId</code> {int} 车型 ID</li>
+<li><code class="prettyprint">km</code> {Number} 公里数</li>
+<li><code class="prettyprint">month</code> {Number} 行车月数</li>
+<li><code class="prettyprint">need</code> {Boolean} 是否需要保养？</li>
+<li><code class="prettyprint">serviceId</code> {int} 服务ID</li>
+</ul>
+
+<h2 id="获取保养数据">获取保养数据</h2>
+<pre><code class="highlight http"><span class="nf">POST</span> <span class="nn">/car/maintenances/list</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">www.51hyc.com</span>
+<span class="s">{</span>
+<span class="s">    "search": {</span>
+<span class="s">        "carTypeId": 651</span>
+<span class="s">    }</span>
+<span class="s">}</span>
+</code></pre>
+<pre><code class="highlight http"><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="s">{</span>
+<span class="s">    "data": {</span>
+<span class="s">        "list": [{</span>
+<span class="s">            "brand": ";金装美孚1号全合成机油",</span>
+<span class="s">            "carTypeId": 651,</span>
+<span class="s">            "id": 591539,</span>
+<span class="s">            "km": 7500,</span>
+<span class="s">            "month": 6,</span>
+<span class="s">            "need": true,</span>
+<span class="s">            "serviceId": 12</span>
+<span class="s">        }, ...],</span>
+<span class="s">        "pageInfo": {</span>
+<span class="s">            "alarmCount": 0,</span>
+<span class="s">            "currentPage": 0,</span>
+<span class="s">            "pageEndRow": 0,</span>
+<span class="s">            "pageSize": 0,</span>
+<span class="s">            "pageStartRow": 0,</span>
+<span class="s">            "totalPage": 0</span>
+<span class="s">        }</span>
+<span class="s">    },</span>
+<span class="s">    "error_code": 0,</span>
+<span class="s">    "error_message": "成功"</span>
+<span class="s">}</span>
+</code></pre>
+
+<p><strong>参数说明</strong></p>
+
+<ul>
+<li><code class="prettyprint">search.carTypeId</code> {Number} 指定车系ID</li>
+</ul>
+
+<p><strong>字段说明</strong></p>
+
+<ul>
+<li><code class="prettyprint">brand</code> {String} 品牌。当关联的服务为 <code class="prettyprint">更换机油和机滤</code> 时，同时保存机油和机滤品牌信息，并以 <code class="prettyprint">;</code> 隔开。</li>
+<li><code class="prettyprint">carTypeId</code> {int} 车型 ID</li>
+<li><code class="prettyprint">km</code> {Number} 公里数</li>
+<li><code class="prettyprint">month</code> {Number} 行车月数</li>
+<li><code class="prettyprint">need</code> {Boolean} 是否需要保养？</li>
+<li><code class="prettyprint">serviceId</code> {int} 服务ID</li>
+</ul>
+
+<h1 id="加油站数据">加油站数据</h1>
+
+<h2 id="加油站列表">加油站列表</h2>
+<pre><code class="highlight http"><span class="nf">POST</span> <span class="nn">/car/stations/list</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">www.51hyc.com</span>
+<span class="s">{</span>
+<span class="s">    "pageNum": 1,</span>
+<span class="s">    "pageSize": 30,</span>
+<span class="s">    "sortOrder": "asc",</span>
+<span class="s">    "word": "test"</span>
+<span class="s">}</span>
+</code></pre>
+<pre><code class="highlight http"><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="s">{</span>
+<span class="s">    "data": {</span>
+<span class="s">        "list": [</span>
+<span class="s">          {</span>
+<span class="s">              "address": "北京 朝阳区东四环十八里店北桥向西北500米，大洋路市场南侧",</span>
+<span class="s">              "brand": "壳牌",</span>
+<span class="s">              "distance": 0.00,</span>
+<span class="s">              "hasLogoYijie": false,</span>
+<span class="s">              "id": 953,</span>
+<span class="s">              "lat": 39.8539960,</span>
+<span class="s">              "lng": 116.4923300,</span>
+<span class="s">              "number": "01067478987",</span>
+<span class="s">              "title": "十八里店加油站"</span>
+<span class="s">          }</span>
+<span class="s">        ],</span>
+<span class="s">        "pageInfo": {</span>
+<span class="s">            "alarmCount": 0,</span>
+<span class="s">            "currentPage": 1,</span>
+<span class="s">            "pageEndRow": 0,</span>
+<span class="s">            "pageSize": 0,</span>
+<span class="s">            "pageStartRow": 0,</span>
+<span class="s">            "totalPage": 1</span>
+<span class="s">        }</span>
+<span class="s">    },</span>
+<span class="s">    "error_code": 0,</span>
+<span class="s">    "error_message": "成功"</span>
+<span class="s">}</span>
+</code></pre>
+
+<p><strong>请求参数说明</strong></p>
+
+<ul>
+<li><code class="prettyprint">pageNum</code> {Number} 指定页码</li>
+<li><code class="prettyprint">pageSize</code> {Number} 指定步长，即每页显示多少条数据。</li>
+<li><code class="prettyprint">sortField</code> {String} 指定排序字段名</li>
+<li><code class="prettyprint">sortOrder</code> {String} 指定排序顺序
+
+<ul>
+<li><code class="prettyprint">asc</code> 正序</li>
+<li><code class="prettyprint">desc</code> 倒序</li>
+</ul></li>
+<li><code class="prettyprint">word</code> 用于模糊搜索。</li>
+</ul>
+
+<p><strong>字段说明</strong></p>
+
+<ul>
+<li><code class="prettyprint">id</code> 加油站 ID</li>
+<li><code class="prettyprint">address</code> 地址</li>
+<li><code class="prettyprint">brand</code> 所属品牌：中国石化、中国石油、壳牌或者中化道达尔。</li>
+<li><code class="prettyprint">title</code> 加油站名称</li>
+<li><code class="prettyprint">hasLogoYijie</code> 是否有易捷店</li>
+<li><code class="prettyprint">lat</code> 经度</li>
+<li><code class="prettyprint">lng</code> 维度</li>
+<li><code class="prettyprint">number</code> 联系电话</li>
+</ul>
+
+<h2 id="加油站修改">加油站修改</h2>
+<pre><code class="highlight http"><span class="nf">POST</span> <span class="nn">/car/stations/save</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">www.51hyc.com</span>
+<span class="s">{</span>
+<span class="s">    "address": "北京 朝阳区东四环十八里店北桥向西北500米，大洋路市场南侧",</span>
+<span class="s">    "brand": "壳牌",</span>
+<span class="s">    "distance": 0.00,</span>
+<span class="s">    "hasLogoYijie": false,</span>
+<span class="s">    "id": 953,</span>
+<span class="s">    "lat": 39.8539960,</span>
+<span class="s">    "lng": 116.4923300,</span>
+<span class="s">    "number": "01067478987",</span>
+<span class="s">    "title": "十八里店加油站"</span>
+<span class="s">}</span>
+</code></pre>
+<pre><code class="highlight http"><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="s">{</span>
+<span class="s">    "data": {</span>
+<span class="s">        ...</span>
+<span class="s">    },</span>
+<span class="s">    "error_code": 0,</span>
+<span class="s">    "error_message": "成功"</span>
+<span class="s">}</span>
+</code></pre>
+
+<aside class="notice">
+包括添加和更新操作，当传入 id 值时，为更新操作，否则为添加操作。
+</aside>
+
+<p><strong>字段说明</strong></p>
+
+<ul>
+<li><code class="prettyprint">id</code> 加油站 ID</li>
+<li><code class="prettyprint">address</code> 地址</li>
+<li><code class="prettyprint">brand</code> 所属品牌：中国石化、中国石油、壳牌或者中化道达尔。</li>
+<li><code class="prettyprint">title</code> 加油站名称</li>
+<li><code class="prettyprint">hasLogoYijie</code> 是否有易捷店</li>
+<li><code class="prettyprint">lat</code> 经度</li>
+<li><code class="prettyprint">lng</code> 维度</li>
+<li><code class="prettyprint">number</code> 联系电话</li>
+</ul>
+
+<h2 id="加油站删除">加油站删除</h2>
+<pre><code class="highlight http"><span class="nf">POST</span> <span class="nn">/car/stations/delete</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">www.51hyc.com</span>
+<span class="s">[1, 2, 3]</span>
+</code></pre>
+<pre><code class="highlight http"><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="s">{</span>
+<span class="s">    "data": {},</span>
+<span class="s">    "error_code": 0,</span>
+<span class="s">    "error_message": "成功"</span>
+<span class="s">}</span>
+</code></pre>
+
+<p>通过数组方式指定id来删除记录。</p>
+
+<h1 id="广告位数据">广告位数据</h1>
+
+<h2 id="获取所有广告位">获取所有广告位</h2>
+<pre><code class="highlight http"><span class="nf">POST</span> <span class="nn">/car/advertises/list</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">www.51hyc.com</span>
+<span class="s">{}</span>
+</code></pre>
+<pre><code class="highlight http"><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="s">{</span>
+<span class="s">    "data": {</span>
+<span class="s">        "list": [</span>
+<span class="s">          {</span>
+<span class="s">              "adname": "不懂车？我帮你，搞定爱车很容易！",</span>
+<span class="s">              "id": 262301,</span>
+<span class="s">              "image": "1414985359442_6470.jpg",</span>
+<span class="s">              "jumpAddress": "",</span>
+<span class="s">              "jumpMethod": 0,</span>
+<span class="s">              "orderNum": 1,</span>
+<span class="s">              "type": 0</span>
+<span class="s">          },</span>
+<span class="s">          ...</span>
+<span class="s">        ],</span>
+<span class="s">        "pageInfo": {</span>
+<span class="s">            "alarmCount": 0,</span>
+<span class="s">            "currentPage": 1,</span>
+<span class="s">            "pageEndRow": 0,</span>
+<span class="s">            "pageSize": 0,</span>
+<span class="s">            "pageStartRow": 0,</span>
+<span class="s">            "totalPage": 1</span>
+<span class="s">        }</span>
+<span class="s">    },</span>
+<span class="s">    "error_code": 0,</span>
+<span class="s">    "error_message": "成功"</span>
+<span class="s">}</span>
+</code></pre>
+
+<p><strong>字段说明</strong></p>
+
+<ul>
+<li><code class="prettyprint">id</code> 广告ID</li>
+<li><code class="prettyprint">adname</code> 广告名称</li>
+<li><code class="prettyprint">image</code> 广告图片</li>
+<li><code class="prettyprint">jumpAddress</code> 广告点击跳转地址</li>
+<li><code class="prettyprint">jumpMethod</code> 广告点击跳转类型：<code class="prettyprint">0</code> 不跳转，<code class="prettyprint">1</code> 网址，<code class="prettyprint">2</code> 商户. 搭配 <code class="prettyprint">jumpAddress</code> 一起使用。</li>
+<li><code class="prettyprint">orderNum</code> 排序字段。</li>
+<li><code class="prettyprint">type</code> 广告类型。0 表示轮播广告位，1 表示固定广告位。</li>
+</ul>
+
+<h2 id="批量保存广告位">批量保存广告位</h2>
+<pre><code class="highlight http"><span class="nf">POST</span> <span class="nn">/car/advertises/jsonArray</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">www.51hyc.com</span>
+<span class="s">[</span>
+<span class="s">  {</span>
+<span class="s">    "adname": "不懂车？我帮你，搞定爱车很容易！",</span>
+<span class="s">    "id": 262301,</span>
+<span class="s">    "image": "1414985359442_6470.jpg",</span>
+<span class="s">    "jumpAddress": "",</span>
+<span class="s">    "jumpMethod": 0,</span>
+<span class="s">    "orderNum": 1,</span>
+<span class="s">    "type": 0</span>
+<span class="s">  },</span>
+<span class="s">  ...</span>
+<span class="s">]</span>
+</code></pre>
+<pre><code class="highlight http"><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="s">{</span>
+<span class="s">    "data": {</span>
+<span class="s">        "list": [</span>
+<span class="s">          {</span>
+<span class="s">              "adname": "不懂车？我帮你，搞定爱车很容易！",</span>
+<span class="s">              "id": 262301,</span>
+<span class="s">              "image": "1414985359442_6470.jpg",</span>
+<span class="s">              "jumpAddress": "",</span>
+<span class="s">              "jumpMethod": 0,</span>
+<span class="s">              "orderNum": 1,</span>
+<span class="s">              "type": 0</span>
+<span class="s">          },</span>
+<span class="s">          ...</span>
+<span class="s">        ],</span>
+<span class="s">        "pageInfo": {</span>
+<span class="s">            "alarmCount": 0,</span>
+<span class="s">            "currentPage": 1,</span>
+<span class="s">            "pageEndRow": 0,</span>
+<span class="s">            "pageSize": 0,</span>
+<span class="s">            "pageStartRow": 0,</span>
+<span class="s">            "totalPage": 1</span>
+<span class="s">        }</span>
+<span class="s">    },</span>
+<span class="s">    "error_code": 0,</span>
+<span class="s">    "error_message": "成功"</span>
+<span class="s">}</span>
+</code></pre>
+
+<p><strong>字段说明</strong></p>
+
+<ul>
+<li><code class="prettyprint">id</code> 加油站 ID</li>
+<li><code class="prettyprint">address</code> 地址</li>
+<li><code class="prettyprint">brand</code> 所属品牌：中国石化、中国石油、壳牌或者中化道达尔。</li>
+<li><code class="prettyprint">title</code> 加油站名称</li>
+<li><code class="prettyprint">hasLogoYijie</code> 是否有易捷店</li>
+<li><code class="prettyprint">lat</code> 经度</li>
+<li><code class="prettyprint">lng</code> 维度</li>
+<li><code class="prettyprint">number</code> 联系电话</li>
+</ul>
+
+<h1 id="养车聚惠数据">养车聚惠数据</h1>
+
+<h2 id="养车聚惠列表">养车聚惠列表</h2>
+<pre><code class="highlight http"><span class="nf">POST</span> <span class="nn">/car/providerservices/list</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">www.51hyc.com</span>
+<span class="s">{</span>
+<span class="s">    "pageNum": 1,</span>
+<span class="s">    "pageSize": 30,</span>
+<span class="s">    "sortOrder": "asc",</span>
+<span class="s">    "word": "test"</span>
+<span class="s">}</span>
+</code></pre>
+<pre><code class="highlight http"><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="s">{</span>
+<span class="s">    "data": {</span>
+<span class="s">        "list": [</span>
+<span class="s">          {</span>
+<span class="s">              "commentMarkPoint": 0,</span>
+<span class="s">              "commentNum": 0,</span>
+<span class="s">              "id": 589651,</span>
+<span class="s">              "latitude": 39.8546560,</span>
+<span class="s">              "logo": "1415512490734_5266.jpg",</span>
+<span class="s">              "longitude": 116.4921990,</span>
+<span class="s">              "providerAddress": "北京市朝阳区十八里店北桥东北角",</span>
+<span class="s">              "providerId": 586600,</span>
+<span class="s">              "providerName": "汇诚博艺汽车维修中心",</span>
+<span class="s">              "serviceId": 39,</span>
+<span class="s">              "serviceName": "套餐七",</span>
+<span class="s">              "title": "小保养仅需185元"</span>
+<span class="s">          },</span>
+<span class="s">          ...</span>
+<span class="s">        ],</span>
+<span class="s">        "pageInfo": {</span>
+<span class="s">            "alarmCount": 0,</span>
+<span class="s">            "currentPage": 1,</span>
+<span class="s">            "pageEndRow": 0,</span>
+<span class="s">            "pageSize": 0,</span>
+<span class="s">            "pageStartRow": 0,</span>
+<span class="s">            "totalPage": 1</span>
+<span class="s">        }</span>
+<span class="s">    },</span>
+<span class="s">    "error_code": 0,</span>
+<span class="s">    "error_message": "成功"</span>
+<span class="s">}</span>
+</code></pre>
+
+<p><strong>请求参数说明</strong></p>
+
+<ul>
+<li><code class="prettyprint">pageNum</code> {Number} 指定页码</li>
+<li><code class="prettyprint">pageSize</code> {Number} 指定步长，即每页显示多少条数据。</li>
+<li><code class="prettyprint">sortField</code> {String} 指定排序字段名</li>
+<li><code class="prettyprint">sortOrder</code> {String} 指定排序顺序
+
+<ul>
+<li><code class="prettyprint">asc</code> 正序</li>
+<li><code class="prettyprint">desc</code> 倒序</li>
+</ul></li>
+<li><code class="prettyprint">word</code> 用于模糊搜索。</li>
+</ul>
+
+<p><strong>字段说明</strong></p>
+
+<ul>
+<li><code class="prettyprint">id</code> 养车聚惠 ID</li>
+<li><code class="prettyprint">title</code> 促销标题</li>
+<li><code class="prettyprint">serviceId</code> 服务类目</li>
+<li><code class="prettyprint">providerId</code> 关联商户</li>
+</ul>
+
+<h2 id="养车聚惠修改">养车聚惠修改</h2>
+<pre><code class="highlight http"><span class="nf">POST</span> <span class="nn">/car/providerservices/save</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">www.51hyc.com</span>
+<span class="s">{</span>
+<span class="s">    "id": 589651,</span>
+<span class="s">    "providerId": 586600,</span>
+<span class="s">    "serviceId": 39,</span>
+<span class="s">    "title": "小保养仅需185元"</span>
+<span class="s">}</span>
+</code></pre>
+<pre><code class="highlight http"><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="s">{</span>
+<span class="s">    "data": {</span>
+<span class="s">        ...</span>
+<span class="s">    },</span>
+<span class="s">    "error_code": 0,</span>
+<span class="s">    "error_message": "成功"</span>
+<span class="s">}</span>
+</code></pre>
+
+<aside class="notice">
+包括添加和更新操作，当传入 id 值时，为更新操作，否则为添加操作。
+</aside>
+
+<p><strong>字段说明</strong></p>
+
+<ul>
+<li><code class="prettyprint">id</code> 养车聚惠 ID</li>
+<li><code class="prettyprint">title</code> 促销标题</li>
+<li><code class="prettyprint">serviceId</code> 服务类目</li>
+<li><code class="prettyprint">providerId</code> 关联商户</li>
+</ul>
+
+<h2 id="养车聚惠删除">养车聚惠删除</h2>
+<pre><code class="highlight http"><span class="nf">POST</span> <span class="nn">/car/providerservices/delete</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">www.51hyc.com</span>
+<span class="s">[1, 2, 3]</span>
+</code></pre>
+<pre><code class="highlight http"><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="s">{</span>
+<span class="s">    "data": {},</span>
+<span class="s">    "error_code": 0,</span>
+<span class="s">    "error_message": "成功"</span>
+<span class="s">}</span>
+</code></pre>
+
+<p>通过数组方式指定id来删除记录。</p>
+
+<h1 id="养车顾问数据">养车顾问数据</h1>
+
+<h2 id="养车顾问列表">养车顾问列表</h2>
+<pre><code class="highlight http"><span class="nf">POST</span> <span class="nn">/car/consultants/list</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">www.51hyc.com</span>
+<span class="s">{</span>
+<span class="s">    "pageNum": 1,</span>
+<span class="s">    "pageSize": 30,</span>
+<span class="s">    "sortOrder": "asc",</span>
+<span class="s">    "word": "test"</span>
+<span class="s">}</span>
+</code></pre>
+<pre><code class="highlight http"><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="s">{</span>
+<span class="s">    "data": {</span>
+<span class="s">        "list": [</span>
+<span class="s">          {</span>
+<span class="s">              "description": "        看着车辆检修保养这修那换的帐单, 花了大把的银子却不知为何而修......是否心头顿时涌上“人为刀俎,我为鱼肉”的感觉？亲，从此以后这都不叫事儿！有了我养车一把手，爱车的故障、维修、保养随时问我，我会帮你找到最靠谱的汽车养护服务商，靠谱的质量，靠谱的价格！我办事，你放心，有问题我担保！",</span>
+<span class="s">              "icon": "1414207673321_5169.jpg",</span>
+<span class="s">              "id": 328951,</span>
+<span class="s">              "name": "养车一把手",</span>
+<span class="s">              "number": "13901286696",</span>
+<span class="s">              "weixinNumber": "Huiyangche1"</span>
+<span class="s">          },</span>
+<span class="s">          ...</span>
+<span class="s">        ],</span>
+<span class="s">        "pageInfo": {</span>
+<span class="s">            "alarmCount": 0,</span>
+<span class="s">            "currentPage": 1,</span>
+<span class="s">            "pageEndRow": 0,</span>
+<span class="s">            "pageSize": 0,</span>
+<span class="s">            "pageStartRow": 0,</span>
+<span class="s">            "totalPage": 1</span>
+<span class="s">        }</span>
+<span class="s">    },</span>
+<span class="s">    "error_code": 0,</span>
+<span class="s">    "error_message": "成功"</span>
+<span class="s">}</span>
+</code></pre>
+
+<p><strong>请求参数说明</strong></p>
+
+<ul>
+<li><code class="prettyprint">pageNum</code> {Number} 指定页码</li>
+<li><code class="prettyprint">pageSize</code> {Number} 指定步长，即每页显示多少条数据。</li>
+<li><code class="prettyprint">sortField</code> {String} 指定排序字段名</li>
+<li><code class="prettyprint">sortOrder</code> {String} 指定排序顺序
+
+<ul>
+<li><code class="prettyprint">asc</code> 正序</li>
+<li><code class="prettyprint">desc</code> 倒序</li>
+</ul></li>
+<li><code class="prettyprint">word</code> 用于模糊搜索。</li>
+</ul>
+
+<p><strong>字段说明</strong></p>
+
+<ul>
+<li><code class="prettyprint">id</code> 养车顾问 ID</li>
+<li><code class="prettyprint">name</code> 顾问名称</li>
+<li><code class="prettyprint">number</code> 手机号码</li>
+<li><code class="prettyprint">weixinNumber</code> 微信号</li>
+<li><code class="prettyprint">icon</code> 头像</li>
+<li><code class="prettyprint">description</code> 简介</li>
+</ul>
+
+<h2 id="养车顾问修改">养车顾问修改</h2>
+<pre><code class="highlight http"><span class="nf">POST</span> <span class="nn">/car/consultants/save</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">www.51hyc.com</span>
+<span class="s">{</span>
+<span class="s">    "description": "        看着车辆检修保养这修那换的帐单, 花了大把的银子却不知为何而修......是否心头顿时涌上“人为刀俎,我为鱼肉”的感觉？亲，从此以后这都不叫事儿！有了我养车一把手，爱车的故障、维修、保养随时问我，我会帮你找到最靠谱的汽车养护服务商，靠谱的质量，靠谱的价格！我办事，你放心，有问题我担保！",</span>
+<span class="s">    "icon": "1414207673321_5169.jpg",</span>
+<span class="s">    "id": 328951,</span>
+<span class="s">    "name": "养车一把手",</span>
+<span class="s">    "number": "13901286696",</span>
+<span class="s">    "weixinNumber": "Huiyangche1"</span>
+<span class="s">}</span>
+</code></pre>
+<pre><code class="highlight http"><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="s">{</span>
+<span class="s">    "data": {</span>
+<span class="s">        ...</span>
+<span class="s">    },</span>
+<span class="s">    "error_code": 0,</span>
+<span class="s">    "error_message": "成功"</span>
+<span class="s">}</span>
+</code></pre>
+
+<aside class="notice">
+包括添加和更新操作，当传入 id 值时，为更新操作，否则为添加操作。
+</aside>
+
+<p><strong>字段说明</strong></p>
+
+<ul>
+<li><code class="prettyprint">id</code> 养车顾问 ID</li>
+<li><code class="prettyprint">name</code> 顾问名称</li>
+<li><code class="prettyprint">number</code> 手机号码</li>
+<li><code class="prettyprint">weixinNumber</code> 微信号</li>
+<li><code class="prettyprint">icon</code> 头像</li>
+<li><code class="prettyprint">description</code> 简介</li>
+</ul>
+
+<h2 id="养车顾问删除">养车顾问删除</h2>
+<pre><code class="highlight http"><span class="nf">POST</span> <span class="nn">/car/consultants/delete</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">www.51hyc.com</span>
+<span class="s">[1, 2, 3]</span>
+</code></pre>
+<pre><code class="highlight http"><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="s">{</span>
+<span class="s">    "data": {},</span>
+<span class="s">    "error_code": 0,</span>
+<span class="s">    "error_message": "成功"</span>
+<span class="s">}</span>
+</code></pre>
+
+<p>通过数组方式指定id来删除记录。</p>
+
+<h1 id="优惠券数据">优惠券数据</h1>
+
+<h2 id="获取所有优惠券模板">获取所有优惠券模板</h2>
+<pre><code class="highlight http"><span class="nf">POST</span> <span class="nn">/car/couponses/list</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">www.51hyc.com</span>
+<span class="s">{}</span>
+</code></pre>
+<pre><code class="highlight http"><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="s">{</span>
+<span class="s">    "data": {</span>
+<span class="s">        "list": [</span>
+<span class="s">          {</span>
+<span class="s">              "enabled": 0,</span>
+<span class="s">              "id": 1,</span>
+<span class="s">              "price": 5,</span>
+<span class="s">              "reason": "用户注册发放",</span>
+<span class="s">              "status": 0,</span>
+<span class="s">              "title": "用户注册",</span>
+<span class="s">              "validTime": "2014-11-01"</span>
+<span class="s">          },</span>
+<span class="s">          ...</span>
+<span class="s">        ],</span>
+<span class="s">        "pageInfo": {</span>
+<span class="s">            "alarmCount": 0,</span>
+<span class="s">            "currentPage": 1,</span>
+<span class="s">            "pageEndRow": 0,</span>
+<span class="s">            "pageSize": 0,</span>
+<span class="s">            "pageStartRow": 0,</span>
+<span class="s">            "totalPage": 1</span>
+<span class="s">        }</span>
+<span class="s">    },</span>
+<span class="s">    "error_code": 0,</span>
+<span class="s">    "error_message": "成功"</span>
+<span class="s">}</span>
+</code></pre>
+
+<p><strong>字段说明</strong></p>
+
+<ul>
+<li><code class="prettyprint">id</code> 优惠券模板 ID</li>
+<li><code class="prettyprint">price</code> 优惠金额</li>
+<li><code class="prettyprint">reason</code> 发放原因</li>
+<li><code class="prettyprint">status</code> 是否开起。<code class="prettyprint">0</code> 为开启，<code class="prettyprint">1</code> 开启.</li>
+<li><code class="prettyprint">title</code> 优惠券名称</li>
+<li><code class="prettyprint">validTime</code> 优惠有效期。日期格式。</li>
+</ul>
+
+<h2 id="获取指定优惠券">获取指定优惠券</h2>
+<pre><code class="highlight http"><span class="nf">POST</span> <span class="nn">/car/couponses/get</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">www.51hyc.com</span>
+<span class="s">{</span>
+<span class="s">    "id": 1</span>
+<span class="s">}</span>
+</code></pre>
+<pre><code class="highlight http"><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="s">{</span>
+<span class="s">    "data": {</span>
+<span class="s">        "enabled": 0,</span>
+<span class="s">        "id": 1,</span>
+<span class="s">        "price": 5,</span>
+<span class="s">        "reason": "用户注册发放",</span>
+<span class="s">        "status": 0,</span>
+<span class="s">        "title": "用户注册",</span>
+<span class="s">        "validTime": "2014-11-01"</span>
+<span class="s">    },</span>
+<span class="s">    "error_code": 0,</span>
+<span class="s">    "error_message": "成功"</span>
+<span class="s">}</span>
+</code></pre>
+
+<p>通过传入 id 值指定具体数据。</p>
+
+<p><strong>字段说明</strong></p>
+
+<ul>
+<li><code class="prettyprint">id</code> 优惠券模板 ID</li>
+<li><code class="prettyprint">price</code> 优惠金额</li>
+<li><code class="prettyprint">reason</code> 发放原因</li>
+<li><code class="prettyprint">status</code> 是否开起。<code class="prettyprint">0</code> 为开启，<code class="prettyprint">1</code> 开启.</li>
+<li><code class="prettyprint">title</code> 优惠券名称</li>
+<li><code class="prettyprint">validTime</code> 优惠有效期。日期格式。</li>
+</ul>
+
+<h2 id="优惠券修改">优惠券修改</h2>
+<pre><code class="highlight http"><span class="nf">POST</span> <span class="nn">/car/couponses/save</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">www.51hyc.com</span>
+<span class="s">{</span>
+<span class="s">    "enabled": 0,</span>
+<span class="s">    "id": 1,</span>
+<span class="s">    "price": 5,</span>
+<span class="s">    "reason": "用户注册发放",</span>
+<span class="s">    "status": 0,</span>
+<span class="s">    "title": "用户注册",</span>
+<span class="s">    "validTime": "2014-11-01"</span>
+<span class="s">}</span>
+</code></pre>
+<pre><code class="highlight http"><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="s">{</span>
+<span class="s">    "data": {</span>
+<span class="s">        ...</span>
+<span class="s">    },</span>
+<span class="s">    "error_code": 0,</span>
+<span class="s">    "error_message": "成功"</span>
+<span class="s">}</span>
+</code></pre>
+
+<p>只有修改接口，没有新增接口。</p>
+
+<p><strong>字段说明</strong></p>
+
+<ul>
+<li><code class="prettyprint">id</code> 优惠券模板 ID</li>
+<li><code class="prettyprint">price</code> 优惠金额</li>
+<li><code class="prettyprint">reason</code> 发放原因</li>
+<li><code class="prettyprint">status</code> 是否开起。<code class="prettyprint">0</code> 为开启，<code class="prettyprint">1</code> 开启.</li>
+<li><code class="prettyprint">title</code> 优惠券名称</li>
+<li><code class="prettyprint">validTime</code> 优惠有效期。日期格式。</li>
+</ul>
+
+<h1 id="消息数据">消息数据</h1>
+
+<h2 id="消息列表">消息列表</h2>
+<pre><code class="highlight http"><span class="nf">POST</span> <span class="nn">/car/messages/list</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">www.51hyc.com</span>
+<span class="s">{</span>
+<span class="s">    "pageNum": 1,</span>
+<span class="s">    "pageSize": 30,</span>
+<span class="s">    "sortOrder": "asc",</span>
+<span class="s">    "word": "test"</span>
+<span class="s">}</span>
+</code></pre>
+<pre><code class="highlight http"><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="s">{</span>
+<span class="s">    "data": {</span>
+<span class="s">        "list": [</span>
+<span class="s">          {</span>
+<span class="s">              "comeFrom": "会养车",</span>
+<span class="s">              "content": "提醒广大市民，由于7月7日是周日，新一轮尾号限行将正式从7月8日(星期一)开始。请司机朋友们出行前仔细核对车牌，避免违规出行造成交通违法。特别是7月5日(星期五)、7月8日(星期一)，车牌尾号为3和8的机动车均限行，请广大车主提前安排好出行计划，限行当日7时至20时之间，禁止在五环路以内道路(不含五环路)行驶。",</span>
+<span class="s">              "id": 328854,</span>
+<span class="s">              "image": "",</span>
+<span class="s">              "publicDate": "2014-10-16",</span>
+<span class="s">              "title": "7月7日起我市新一轮机动车车牌尾号轮换"</span>
+<span class="s">          },</span>
+<span class="s">          ...</span>
+<span class="s">        ],</span>
+<span class="s">        "pageInfo": {</span>
+<span class="s">            "alarmCount": 0,</span>
+<span class="s">            "currentPage": 1,</span>
+<span class="s">            "pageEndRow": 0,</span>
+<span class="s">            "pageSize": 0,</span>
+<span class="s">            "pageStartRow": 0,</span>
+<span class="s">            "totalPage": 1</span>
+<span class="s">        }</span>
+<span class="s">    },</span>
+<span class="s">    "error_code": 0,</span>
+<span class="s">    "error_message": "成功"</span>
+<span class="s">}</span>
+</code></pre>
+
+<p><strong>请求参数说明</strong></p>
+
+<ul>
+<li><code class="prettyprint">pageNum</code> {Number} 指定页码</li>
+<li><code class="prettyprint">pageSize</code> {Number} 指定步长，即每页显示多少条数据。</li>
+<li><code class="prettyprint">sortField</code> {String} 指定排序字段名</li>
+<li><code class="prettyprint">sortOrder</code> {String} 指定排序顺序
+
+<ul>
+<li><code class="prettyprint">asc</code> 正序</li>
+<li><code class="prettyprint">desc</code> 倒序</li>
+</ul></li>
+<li><code class="prettyprint">word</code> 用于模糊搜索。</li>
+</ul>
+
+<p><strong>字段说明</strong></p>
+
+<ul>
+<li><code class="prettyprint">id</code> 消息 ID</li>
+<li><code class="prettyprint">title</code> 消息标题</li>
+<li><code class="prettyprint">comeFrom</code> 来源</li>
+<li><code class="prettyprint">publicDate</code> 发布日期</li>
+<li><code class="prettyprint">content</code> 消息内容</li>
+<li><code class="prettyprint">image</code> 消息图片</li>
+</ul>
+
+<h2 id="消息修改">消息修改</h2>
+<pre><code class="highlight http"><span class="nf">POST</span> <span class="nn">/car/messages/save</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">www.51hyc.com</span>
+<span class="s">{</span>
+<span class="s">    "comeFrom": "会养车",</span>
+<span class="s">    "content": "提醒广大市民，由于7月7日是周日，新一轮尾号限行将正式从7月8日(星期一)开始。请司机朋友们出行前仔细核对车牌，避免违规出行造成交通违法。特别是7月5日(星期五)、7月8日(星期一)，车牌尾号为3和8的机动车均限行，请广大车主提前安排好出行计划，限行当日7时至20时之间，禁止在五环路以内道路(不含五环路)行驶。",</span>
+<span class="s">    "id": 328854,</span>
+<span class="s">    "image": "",</span>
+<span class="s">    "publicDate": "2014-10-16",</span>
+<span class="s">    "title": "7月7日起我市新一轮机动车车牌尾号轮换"</span>
+<span class="s">}</span>
+</code></pre>
+<pre><code class="highlight http"><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="s">{</span>
+<span class="s">    "data": {</span>
+<span class="s">        ...</span>
+<span class="s">    },</span>
+<span class="s">    "error_code": 0,</span>
+<span class="s">    "error_message": "成功"</span>
+<span class="s">}</span>
+</code></pre>
+
+<aside class="notice">
+包括添加和更新操作，当传入 id 值时，为更新操作，否则为添加操作。
+</aside>
+
+<p><strong>字段说明</strong></p>
+
+<ul>
+<li><code class="prettyprint">id</code> 消息 ID</li>
+<li><code class="prettyprint">title</code> 消息标题</li>
+<li><code class="prettyprint">comeFrom</code> 来源</li>
+<li><code class="prettyprint">publicDate</code> 发布日期</li>
+<li><code class="prettyprint">content</code> 消息内容</li>
+<li><code class="prettyprint">image</code> 消息图片</li>
+</ul>
+
+<h2 id="消息删除">消息删除</h2>
+<pre><code class="highlight http"><span class="nf">POST</span> <span class="nn">/car/messages/delete</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">www.51hyc.com</span>
+<span class="s">[1, 2, 3]</span>
+</code></pre>
+<pre><code class="highlight http"><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="s">{</span>
+<span class="s">    "data": {},</span>
+<span class="s">    "error_code": 0,</span>
+<span class="s">    "error_message": "成功"</span>
+<span class="s">}</span>
+</code></pre>
+
+<p>通过数组方式指定id来删除记录。</p>
+
+<h2 id="批量发送短信">批量发送短信</h2>
+<pre><code class="highlight http"><span class="nf">POST</span> <span class="nn">/car/sms/send</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">www.51hyc.com</span>
+<span class="s">{</span>
+<span class="s">  "brandId": 1,</span>
+<span class="s">  "seriesId": 2,</span>
+<span class="s">  "content": "bla bla"</span>
+<span class="s">}</span>
+</code></pre>
+<pre><code class="highlight http"><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="s">{</span>
+<span class="s">    "data": {},</span>
+<span class="s">    "error_code": 0,</span>
+<span class="s">    "error_message": "成功"</span>
+<span class="s">}</span>
+</code></pre>
+
+<p>用来批量给指定用户发送短信，请求参数说明。</p>
+
+<ul>
+<li><code class="prettyprint">brandId</code> 车辆品牌 ID。</li>
+<li><code class="prettyprint">seriesId</code> 车系 ID。</li>
+<li><code class="prettyprint">content</code> 短信内容。</li>
+</ul>
+
+<h1 id="用户数据">用户数据</h1>
+
+<h2 id="获取用户列表">获取用户列表</h2>
+<pre><code class="highlight http"><span class="nf">POST</span> <span class="nn">/car/consumers/list</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">www.51hyc.com</span>
+<span class="s">{</span>
+<span class="s">    "pageNum": 1,</span>
+<span class="s">    "pageSize": 30,</span>
+<span class="s">    "sortOrder": "asc",</span>
+<span class="s">    "word": "13001280302"</span>
+<span class="s">}</span>
+</code></pre>
+<pre><code class="highlight http"><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="s">{</span>
+<span class="s">    "data": {</span>
+<span class="s">        "list": [</span>
+<span class="s">          {</span>
+<span class="s">              "carId": 24816,</span>
+<span class="s">              "carKm": 123,</span>
+<span class="s">              "carName": "2012款  4.8T 自动 ",</span>
+<span class="s">              "icon": "1414138870963_3191.png",</span>
+<span class="s">              "id": 280301,</span>
+<span class="s">              "number": 13001280302,</span>
+<span class="s">              "recommended": "",</span>
+<span class="s">              "totalPrice": 0.00,</span>
+<span class="s">              "userName": "振华",</span>
+<span class="s">              "integral":100</span>
+<span class="s">          },</span>
+<span class="s">          ...</span>
+<span class="s">        ],</span>
+<span class="s">        "pageInfo": {</span>
+<span class="s">            "alarmCount": 0,</span>
+<span class="s">            "currentPage": 1,</span>
+<span class="s">            "pageEndRow": 0,</span>
+<span class="s">            "pageSize": 0,</span>
+<span class="s">            "pageStartRow": 0,</span>
+<span class="s">            "totalPage": 1</span>
+<span class="s">        }</span>
+<span class="s">    },</span>
+<span class="s">    "error_code": 0,</span>
+<span class="s">    "error_message": "成功"</span>
+<span class="s">}</span>
+</code></pre>
+
+<p><strong>请求参数说明</strong></p>
+
+<ul>
+<li><code class="prettyprint">pageNum</code> {Number} 指定页码</li>
+<li><code class="prettyprint">pageSize</code> {Number} 指定步长，即每页显示多少条数据。</li>
+<li><code class="prettyprint">sortField</code> {String} 指定排序字段名</li>
+<li><code class="prettyprint">sortOrder</code> {String} 指定排序顺序
+
+<ul>
+<li><code class="prettyprint">asc</code> 正序</li>
+<li><code class="prettyprint">desc</code> 倒序</li>
+</ul></li>
+<li><code class="prettyprint">word</code> 用于模糊搜索。</li>
+</ul>
+
+<p><strong>字段说明</strong></p>
+
+<ul>
+<li><code class="prettyprint">id</code> 用户 ID</li>
+<li><code class="prettyprint">icon</code> 用户头像图片地址</li>
+<li><code class="prettyprint">userName</code> 用户名</li>
+<li><code class="prettyprint">number</code> 用户电话</li>
+<li><code class="prettyprint">carName</code> 车型信息</li>
+<li><code class="prettyprint">carKm</code> 行驶公里数</li>
+<li><code class="prettyprint">integral</code> 用户积分</li>
+</ul>
+
+<h2 id="获取用户详情">获取用户详情</h2>
+<pre><code class="highlight http"><span class="nf">POST</span> <span class="nn">/car/consumers/get</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">www.51hyc.com</span>
+<span class="s">{</span>
+<span class="s">    "id": 280301</span>
+<span class="s">}</span>
+</code></pre>
+<pre><code class="highlight http"><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="s">{</span>
+<span class="s">    "data": {</span>
+<span class="s">        "auto": true,</span>
+<span class="s">        "bankName": "",</span>
+<span class="s">        "bankNumber": "",</span>
+<span class="s">        "bankPayee": "",</span>
+<span class="s">        "birthday": "",</span>
+<span class="s">        "carBrandId": 503,</span>
+<span class="s">        "carBrandName": "保时捷",</span>
+<span class="s">        "carId": 24816,</span>
+<span class="s">        "carKm": 123,</span>
+<span class="s">        "carName": "2012款  4.8T 自动 ",</span>
+<span class="s">        "carSeriesId": 802,</span>
+<span class="s">        "carSeriesName": "Panamera",</span>
+<span class="s">        "certificatePhoto": "",</span>
+<span class="s">        "clientType": 4,</span>
+<span class="s">        "commentNum": 0,</span>
+<span class="s">        "company": "",</span>
+<span class="s">        "contactName": "",</span>
+<span class="s">        "contactNumber": "",</span>
+<span class="s">        "couponsNum": 1,</span>
+<span class="s">        "createTime": 0,</span>
+<span class="s">        "deleteTime": 0,</span>
+<span class="s">        "description": "",</span>
+<span class="s">        "drivingLicenseType": "",</span>
+<span class="s">        "email": "",</span>
+<span class="s">        "forbidden": 0,</span>
+<span class="s">        "icon": "1414138870963_3191.png",</span>
+<span class="s">        "id": 280301,</span>
+<span class="s">        "idPhotoFan": "",</span>
+<span class="s">        "idPhotoZheng": "",</span>
+<span class="s">        "identityCardNumber": "",</span>
+<span class="s">        "introduction": "",</span>
+<span class="s">        "isLogin": 0,</span>
+<span class="s">        "latitude": 0E-7,</span>
+<span class="s">        "loginTime": 0,</span>
+<span class="s">        "longitude": 0E-7,</span>
+<span class="s">        "majorModels": "",</span>
+<span class="s">        "markpoint": 0.0,</span>
+<span class="s">        "nativePlace": "",</span>
+<span class="s">        "number": 13001280302,</span>
+<span class="s">        "occupationLevel": 0,</span>
+<span class="s">        "occupationType": "",</span>
+<span class="s">        "orderCount": 1,</span>
+<span class="s">        "providerAddress": "",</span>
+<span class="s">        "providerArea": "",</span>
+<span class="s">        "providerEmployeesNumber": 0,</span>
+<span class="s">        "providerId": 0,</span>
+<span class="s">        "providerName": "",</span>
+<span class="s">        "providerNature": "",</span>
+<span class="s">        "providerNum": 0,</span>
+<span class="s">        "providerStationNumber": 0,</span>
+<span class="s">        "pushChannelId": "4629063600863975594",</span>
+<span class="s">        "pushUserId": "973987126908356985",</span>
+<span class="s">        "qq": "",</span>
+<span class="s">        "questionCount": 0,</span>
+<span class="s">        "recommend": 2,</span>
+<span class="s">        "recommended": "",</span>
+<span class="s">        "remark": "",</span>
+<span class="s">        "serviceType": "",</span>
+<span class="s">        "sex": "",</span>
+<span class="s">        "status": 5,</span>
+<span class="s">        "technicianAnswerNum": 0,</span>
+<span class="s">        "technicianExperienceList": [],</span>
+<span class="s">        "technicianOrderCount": 0,</span>
+<span class="s">        "technicianOrderNum": 0,</span>
+<span class="s">        "technicianServiceTypeId": 0,</span>
+<span class="s">        "totalPrice": 0.00,</span>
+<span class="s">        "type": 1,</span>
+<span class="s">        "updateTime": 0,</span>
+<span class="s">        "userName": "振华",</span>
+<span class="s">        "weixin": "",</span>
+<span class="s">        "workExperience": 0,</span>
+<span class="s">        "zfbNumber": ""</span>
+<span class="s">    },</span>
+<span class="s">    "error_code": 0,</span>
+<span class="s">    "error_message": "成功"</span>
+<span class="s">}</span>
+</code></pre>
+
+<p>通过指定 id 可获取用户详情。</p>
+
+<p>字段说明</p>
+
+<ul>
+<li><code class="prettyprint">id</code> 用户 ID</li>
+<li><code class="prettyprint">userName</code> 用户昵称</li>
+<li><code class="prettyprint">number</code> 手机号码</li>
+<li><code class="prettyprint">icon</code> 头像地址</li>
+<li><code class="prettyprint">integral</code> 积分</li>
+<li><code class="prettyprint">orderCount</code> 订单数</li>
+<li><code class="prettyprint">commentNum</code> 评论数</li>
+<li><code class="prettyprint">couponsNum</code> 优惠券数</li>
+<li><code class="prettyprint">providerNum</code> 收藏商户数</li>
+<li><code class="prettyprint">carBrandName</code> 车辆品牌信息</li>
+<li><code class="prettyprint">carSeriesName</code> 车系名称</li>
+<li><code class="prettyprint">carName</code> 车型名称</li>
+<li><code class="prettyprint">carStructureNo</code> 车架号</li>
+<li><code class="prettyprint">carEngineNo</code> 发动机编号</li>
+<li><code class="prettyprint">ownerName</code> 车主姓名</li>
+<li><code class="prettyprint">carNumber</code> 车牌号</li>
+<li><code class="prettyprint">purchaseTime</code> 购车日期 字符串类型</li>
+<li><code class="prettyprint">carKm</code> 里程数</li>
+</ul>
+
+<h1 id="技师数据">技师数据</h1>
+
+<h2 id="获取技师列表">获取技师列表</h2>
+<pre><code class="highlight http"><span class="nf">POST</span> <span class="nn">/car/consumers/technicianList</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">www.51hyc.com</span>
+<span class="s">{</span>
+<span class="s">    "otherSearch": {</span>
+<span class="s">        "createTimeEnd": "1419004799000",</span>
+<span class="s">        "createTimeStart": "1418832000000",</span>
+<span class="s">        "updateTimeEnd": "1423843199000",</span>
+<span class="s">        "updateTimeStart": "1422892800000"</span>
+<span class="s">    },</span>
+<span class="s">    "pageNum": 1,</span>
+<span class="s">    "pageSize": 30,</span>
+<span class="s">    "search": {</span>
+<span class="s">        "status": 6</span>
+<span class="s">    },</span>
+<span class="s">    "sortOrder": "asc",</span>
+<span class="s">    "word": "13683311167"</span>
+<span class="s">}</span>
+</code></pre>
+<pre><code class="highlight http"><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="s">{</span>
+<span class="s">    "data": {</span>
+<span class="s">        "list": [</span>
+<span class="s">          {</span>
+<span class="s">              "bankName": "",</span>
+<span class="s">              "bankNumber": "",</span>
+<span class="s">              "bankPayee": "",</span>
+<span class="s">              "birthday": "1996-11-01",</span>
+<span class="s">              "certificatePhoto": "201412/1418865917786_9015.jpg",</span>
+<span class="s">              "clientType": 4,</span>
+<span class="s">              "company": "美孚1号店",</span>
+<span class="s">              "contactName": "王新军",</span>
+<span class="s">              "contactNumber": "18901076116",</span>
+<span class="s">              "createTime": 1418865995607,</span>
+<span class="s">              "deleteTime": 0,</span>
+<span class="s">              "description": "从业2年,主修日系,德系",</span>
+<span class="s">              "distance": -1,</span>
+<span class="s">              "drivingLicenseType": "",</span>
+<span class="s">              "email": "",</span>
+<span class="s">              "forbidden": 0,</span>
+<span class="s">              "icon": "201412/1418865737066_3678.jpg",</span>
+<span class="s">              "id": 593660,</span>
+<span class="s">              "idPhotoFan": "",</span>
+<span class="s">              "idPhotoZheng": "201412/1418865736384_3991.jpg",</span>
+<span class="s">              "identityCardNumber": "141002199611010052",</span>
+<span class="s">              "introduction": "各类汽车诊断  维修",</span>
+<span class="s">              "isLogin": 0,</span>
+<span class="s">              "latitude": 39.8483760,</span>
+<span class="s">              "loginTime": 0,</span>
+<span class="s">              "longitude": 116.3911670,</span>
+<span class="s">              "majorModels": "2;3",</span>
+<span class="s">              "nativePlace": "",</span>
+<span class="s">              "number": 13683311167,</span>
+<span class="s">              "occupationLevel": 1,</span>
+<span class="s">              "occupationType": "维修工",</span>
+<span class="s">              "provider": {</span>
+<span class="s">                  "area": 293,</span>
+<span class="s">                  "bankaccountname": "王新军",</span>
+<span class="s">                  "bankaccountnumber": "6217000010005160042",</span>
+<span class="s">                  "bankbranchname": "建设银行马家堡支行",</span>
+<span class="s">                  "bankname": "",</span>
+<span class="s">                  "businesscondition": "日均洗车（\u00A0）辆、日均车流量（\u00A0）辆、月均营业额（\u00A0）元",</span>
+<span class="s">                  "cellphone": "18901076116",</span>
+<span class="s">                  "chaintype": "汽车养护店",</span>
+<span class="s">                  "collaboration": "",</span>
+<span class="s">                  "commentNum": 0,</span>
+<span class="s">                  "commercialtype": "单店直营",</span>
+<span class="s">                  "creditrank": "0",</span>
+<span class="s">                  "description": "",</span>
+<span class="s">                  "distance": -1,</span>
+<span class="s">                  "employeenumber": 6,</span>
+<span class="s">                  "equipment": "洗车机;扒胎机;举升机;烤漆房;无尘贴膜车间",</span>
+<span class="s">                  "hasSigning": 0,</span>
+<span class="s">                  "id": 590213,</span>
+<span class="s">                  "iscompany": "NaN",</span>
+<span class="s">                  "keyword": "",</span>
+<span class="s">                  "latitude": 39.8483760,</span>
+<span class="s">                  "logo": "1418010888295_5771.jpg",</span>
+<span class="s">                  "logoDesc": "",</span>
+<span class="s">                  "longitude": 116.3911670,</span>
+<span class="s">                  "officetype": "住宅区",</span>
+<span class="s">                  "opentime": "07:30-18:00",</span>
+<span class="s">                  "personname": "王新军",</span>
+<span class="s">                  "picDesc": "",</span>
+<span class="s">                  "picture": "1418010894624_8357.jpg",</span>
+<span class="s">                  "postcode": "100075",</span>
+<span class="s">                  "providerAddress": "北京市丰台区西马厂怡然家园6号院1号楼",</span>
+<span class="s">                  "providerCode": "H110106-0024",</span>
+<span class="s">                  "providerName": "万福鸿达汽车服务",</span>
+<span class="s">                  "qq": "",</span>
+<span class="s">                  "qualification": "营业执照;税务登记证;组织机构代码",</span>
+<span class="s">                  "servicedescription": "洗车;美容;装饰;保养;快修;四轮定位;喷漆;钣金;轮胎;车险;道路救援",</span>
+<span class="s">                  "settlementday": "10",</span>
+<span class="s">                  "shoptype": "单层门面",</span>
+<span class="s">                  "telephone": "01057177106",</span>
+<span class="s">                  "website": " ",</span>
+<span class="s">                  "wechat": ""</span>
+<span class="s">              },</span>
+<span class="s">              "providerAddress": "北京市丰台区西马厂怡然家园6号院1号楼",</span>
+<span class="s">              "providerArea": "",</span>
+<span class="s">              "providerEmployeesNumber": 0,</span>
+<span class="s">              "providerId": 590213,</span>
+<span class="s">              "providerName": "万福鸿达汽车服务",</span>
+<span class="s">              "providerNature": "快修养护店",</span>
+<span class="s">              "providerStationNumber": 0,</span>
+<span class="s">              "pushChannelId": "",</span>
+<span class="s">              "pushUserId": "",</span>
+<span class="s">              "qq": "663693210",</span>
+<span class="s">              "recommend": 2,</span>
+<span class="s">              "recommended": "",</span>
+<span class="s">              "remark": "",</span>
+<span class="s">              "sex": "男",</span>
+<span class="s">              "status": 6,</span>
+<span class="s">              "technicianAnswerNum": 0,</span>
+<span class="s">              "technicianOrderNum": 0,</span>
+<span class="s">              "technicianServiceTypeId": 1,</span>
+<span class="s">              "type": 2,</span>
+<span class="s">              "updateTime": 1420530322624,</span>
+<span class="s">              "userName": "贾冬旻",</span>
+<span class="s">              "weixin": "",</span>
+<span class="s">              "workExperience": 2,</span>
+<span class="s">              "zfbNumber": "13683311167"</span>
+<span class="s">          },</span>
+<span class="s">          ...</span>
+<span class="s">        ],</span>
+<span class="s">        "pageInfo": {</span>
+<span class="s">            "alarmCount": 0,</span>
+<span class="s">            "currentPage": 1,</span>
+<span class="s">            "pageEndRow": 0,</span>
+<span class="s">            "pageSize": 0,</span>
+<span class="s">            "pageStartRow": 0,</span>
+<span class="s">            "totalPage": 1</span>
+<span class="s">        }</span>
+<span class="s">    },</span>
+<span class="s">    "error_code": 0,</span>
+<span class="s">    "error_message": "成功"</span>
+<span class="s">}</span>
+</code></pre>
+
+<p><strong>请求参数说明</strong></p>
+
+<ul>
+<li><code class="prettyprint">pageNum</code> {Number} 指定页码</li>
+<li><code class="prettyprint">pageSize</code> {Number} 指定步长，即每页显示多少条数据。</li>
+<li><code class="prettyprint">sortField</code> {String} 指定排序字段名</li>
+<li><code class="prettyprint">sortOrder</code> {String} 指定排序顺序
+
+<ul>
+<li><code class="prettyprint">asc</code> 正序</li>
+<li><code class="prettyprint">desc</code> 倒序</li>
+</ul></li>
+<li><code class="prettyprint">word</code> 用于模糊搜索。</li>
+<li><code class="prettyprint">search</code>
+
+<ul>
+<li><code class="prettyprint">status</code> {Number} 指定状态。<code class="prettyprint">3</code> 审核不通过 <code class="prettyprint">5</code> 待审核 <code class="prettyprint">6</code> 审核通过</li>
+</ul></li>
+<li><code class="prettyprint">otherSearch</code>
+
+<ul>
+<li><code class="prettyprint">createTimeEnd</code> {String} 注册日期开头，时间戳格式。</li>
+<li><code class="prettyprint">createTimeStart</code> {String} 注册日期结尾，时间戳格式。</li>
+<li><code class="prettyprint">updateTimeStart</code> {String} 审核日期开头，时间戳格式。</li>
+<li><code class="prettyprint">updateTimeEnd</code> {String} 审核日期结尾，时间戳格式。</li>
+</ul></li>
+</ul>
+
+<p><strong>字段说明</strong></p>
+
+<ul>
+<li><code class="prettyprint">id</code> 技师 ID</li>
+<li><code class="prettyprint">icon</code> 技师头像图片地址</li>
+<li><code class="prettyprint">userName</code> 名称</li>
+<li><code class="prettyprint">number</code> 手机号</li>
+<li><code class="prettyprint">createTime</code> 注册时间</li>
+<li><code class="prettyprint">providerId</code> 关联商户</li>
+<li><code class="prettyprint">isLogin</code> 是否登陆</li>
+<li><code class="prettyprint">status</code> 审核状态 <code class="prettyprint">3</code> 审核不通过 <code class="prettyprint">5</code> 待审核 <code class="prettyprint">6</code> 审核通过</li>
+<li><code class="prettyprint">recommend</code> 是否推荐 <code class="prettyprint">1</code> 表示推荐 其他表示不推荐</li>
+<li><code class="prettyprint">forbidden</code> 是否封禁 <code class="prettyprint">1</code> 表示是 其他表示否</li>
+<li><code class="prettyprint">workExperience</code> 工作年限</li>
+<li><code class="prettyprint">majorModels</code> 主修车型，多个数字是使用 <code class="prettyprint">;</code> 分号隔开。
+
+<ul>
+<li><code class="prettyprint">1</code> 美系</li>
+<li><code class="prettyprint">2</code> 日系</li>
+<li><code class="prettyprint">3</code> 德系</li>
+<li><code class="prettyprint">4</code> 韩系</li>
+<li><code class="prettyprint">5</code> 法系</li>
+<li><code class="prettyprint">6</code> 自主</li>
+<li><code class="prettyprint">7</code> 欧系其它</li>
+</ul></li>
+</ul>
+
+<h2 id="获取技师详情">获取技师详情</h2>
+<pre><code class="highlight http"><span class="nf">POST</span> <span class="nn">/car/consumers/get</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">www.51hyc.com</span>
+<span class="s">{</span>
+<span class="s">    "id": 593660</span>
+<span class="s">}</span>
+</code></pre>
+<pre><code class="highlight http"><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="s">{</span>
+<span class="s">    "data": {</span>
+<span class="s">        "bankName": "",</span>
+<span class="s">        "bankNumber": "",</span>
+<span class="s">        "bankPayee": "",</span>
+<span class="s">        "birthday": "1996-11-01",</span>
+<span class="s">        "certificatePhoto": "201412/1418865917786_9015.jpg",</span>
+<span class="s">        "clientType": 4,</span>
+<span class="s">        "commentNum": 0,</span>
+<span class="s">        "company": "美孚1号店",</span>
+<span class="s">        "contactName": "王新军",</span>
+<span class="s">        "contactNumber": "18901076116",</span>
+<span class="s">        "couponsNum": 0,</span>
+<span class="s">        "createTime": 1418865995607,</span>
+<span class="s">        "deleteTime": 0,</span>
+<span class="s">        "description": "",</span>
+<span class="s">        "drivingLicenseType": "",</span>
+<span class="s">        "email": "",</span>
+<span class="s">        "forbidden": 0,</span>
+<span class="s">        "icon": "201412/1418865737066_3678.jpg",</span>
+<span class="s">        "id": 593660,</span>
+<span class="s">        "idPhotoFan": "",</span>
+<span class="s">        "idPhotoZheng": "201412/1418865736384_3991.jpg",</span>
+<span class="s">        "identityCardNumber": "141002199611010052",</span>
+<span class="s">        "introduction": "各类汽车诊断  维修",</span>
+<span class="s">        "isLogin": 0,</span>
+<span class="s">        "loginTime": 0,</span>
+<span class="s">        "majorModels": "2;3",</span>
+<span class="s">        "markpoint": 0.0,</span>
+<span class="s">        "nativePlace": "",</span>
+<span class="s">        "number": 13683311167,</span>
+<span class="s">        "occupationLevel": 1,</span>
+<span class="s">        "occupationType": "维修工",</span>
+<span class="s">        "orderCount": 0,</span>
+<span class="s">        "providerAddress": "北京市丰台区西马厂怡然家园6号院1号楼",</span>
+<span class="s">        "providerArea": "",</span>
+<span class="s">        "providerEmployeesNumber": 0,</span>
+<span class="s">        "providerId": 590213,</span>
+<span class="s">        "providerName": "万福鸿达汽车服务",</span>
+<span class="s">        "providerNature": "快修养护店",</span>
+<span class="s">        "providerNum": 0,</span>
+<span class="s">        "providerStationNumber": 0,</span>
+<span class="s">        "pushChannelId": "",</span>
+<span class="s">        "pushUserId": "",</span>
+<span class="s">        "qq": "663693210",</span>
+<span class="s">        "questionCount": 0,</span>
+<span class="s">        "recommend": 2,</span>
+<span class="s">        "recommended": "",</span>
+<span class="s">        "remark": "",</span>
+<span class="s">        "serviceType": "",</span>
+<span class="s">        "sex": "男",</span>
+<span class="s">        "status": 6,</span>
+<span class="s">        "technicianAnswerNum": 0,</span>
+<span class="s">        "technicianExperienceList": [],</span>
+<span class="s">        "technicianOrderCount": 0,</span>
+<span class="s">        "technicianOrderNum": 0,</span>
+<span class="s">        "technicianServiceTypeId": 1,</span>
+<span class="s">        "totalPrice": 0.00,</span>
+<span class="s">        "type": 2,</span>
+<span class="s">        "updateTime": 1420530322624,</span>
+<span class="s">        "userName": "贾冬旻",</span>
+<span class="s">        "weixin": "",</span>
+<span class="s">        "workExperience": 2,</span>
+<span class="s">        "zfbNumber": "13683311167"</span>
+<span class="s">    },</span>
+<span class="s">    "error_code": 0,</span>
+<span class="s">    "error_message": "成功"</span>
+<span class="s">}</span>
+</code></pre>
+
+<p>通过指定 id 可获取技师详情。跟获取用户详情是同一个接口。</p>
+
+<p>字段说明</p>
+
+<ul>
+<li><code class="prettyprint">id</code> 技师 ID</li>
+<li><code class="prettyprint">userName</code> 用户昵称</li>
+<li><code class="prettyprint">number</code> 手机号码</li>
+<li><code class="prettyprint">icon</code> 头像地址</li>
+<li><code class="prettyprint">sex</code> 性别</li>
+<li><code class="prettyprint">birthday</code> 生日</li>
+<li><code class="prettyprint">identityCardNumber</code> 身份证号码</li>
+<li><code class="prettyprint">idPhotoZheng</code> 身份证照片</li>
+<li><code class="prettyprint">qq</code> QQ号码</li>
+<li><code class="prettyprint">weixin</code> 微信号</li>
+<li><code class="prettyprint">email</code> 邮箱地址</li>
+<li><code class="prettyprint">drivingLicenseType</code> 驾驶证类型</li>
+<li><code class="prettyprint">zfbNumber</code> 支付宝账号</li>
+<li><code class="prettyprint">bankNumber</code> 银行卡号</li>
+<li><code class="prettyprint">bankName</code> 银行名称</li>
+<li><code class="prettyprint">bankPayee</code> 收款人姓名</li>
+<li><code class="prettyprint">introduction</code> 个人介绍</li>
+<li><code class="prettyprint">workExperience</code> 工作年限</li>
+<li><code class="prettyprint">majorModels</code> 主修车型，多个数字是使用 <code class="prettyprint">;</code> 分号隔开。
+
+<ul>
+<li><code class="prettyprint">1</code> 美系</li>
+<li><code class="prettyprint">2</code> 日系</li>
+<li><code class="prettyprint">3</code> 德系</li>
+<li><code class="prettyprint">4</code> 韩系</li>
+<li><code class="prettyprint">5</code> 法系</li>
+<li><code class="prettyprint">6</code> 自主</li>
+<li><code class="prettyprint">7</code> 欧系其它</li>
+</ul></li>
+<li><code class="prettyprint">technicianServiceTypeId</code> 服务类型，值为数字
+
+<ul>
+<li><code class="prettyprint">1</code> 维修保养</li>
+<li><code class="prettyprint">2</code> 钣金喷漆</li>
+<li><code class="prettyprint">3</code> 美容装饰</li>
+<li><code class="prettyprint">4</code> 保险理赔</li>
+</ul></li>
+<li><code class="prettyprint">occupationType</code> 职业资格类型</li>
+<li><code class="prettyprint">occupationLevel</code> 职业资格等级
+
+<ul>
+<li><code class="prettyprint">1</code> 中级技工</li>
+<li><code class="prettyprint">2</code> 高级技工</li>
+<li><code class="prettyprint">3</code> 技师</li>
+<li><code class="prettyprint">4</code> 高级技师</li>
+</ul></li>
+<li><code class="prettyprint">certificatePhoto</code> 资格证照片 图片地址</li>
+<li><code class="prettyprint">company</code> 目前就职单位</li>
+<li><p><code class="prettyprint">technicianExperienceList</code> 工作经历列表，数组。</p>
+
+<p>单元参数说明</p>
+
+<ul>
+<li><code class="prettyprint">company</code> 单位名称</li>
+<li><code class="prettyprint">station</code> 岗位</li>
+<li><code class="prettyprint">workStartTime</code> 工作时间开始时间</li>
+<li><code class="prettyprint">workEndTime</code> 工作时间结束时间</li>
+<li><code class="prettyprint">workContent</code> 工作内容</li>
+</ul></li>
+<li><p><code class="prettyprint">providerName</code> 商户名称</p></li>
+<li><p><code class="prettyprint">providerId</code> 商户ID 有可能没值。</p></li>
+<li><p><code class="prettyprint">providerAddress</code> 商户地址</p></li>
+<li><p><code class="prettyprint">contactName</code> 联系人</p></li>
+<li><p><code class="prettyprint">contactNumber</code> 手机号码</p></li>
+<li><p><code class="prettyprint">providerNature</code> 商户性质</p></li>
+<li><p><code class="prettyprint">status</code> 审核状态 <code class="prettyprint">3</code> 审核不通过 <code class="prettyprint">5</code> 待审核 <code class="prettyprint">6</code> 审核通过</p></li>
+<li><p><code class="prettyprint">recommend</code> 是否推荐 <code class="prettyprint">1</code> 表示推荐 其他表示不推荐</p></li>
+<li><p><code class="prettyprint">forbidden</code> 是否封禁 <code class="prettyprint">1</code> 表示是 其他表示否</p></li>
+<li><p><code class="prettyprint">remark</code> 备注信息</p></li>
+</ul>
+
+<h2 id="保存技师数据">保存技师数据</h2>
+<pre><code class="highlight http"><span class="nf">POST</span> <span class="nn">/car/consumers/save</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">www.51hyc.com</span>
+<span class="s">{</span>
+<span class="s">    "bankName": "",</span>
+<span class="s">    "bankNumber": "",</span>
+<span class="s">    "bankPayee": "",</span>
+<span class="s">    "birthday": "1996-11-01",</span>
+<span class="s">    "certificatePhoto": "201412/1418865917786_9015.jpg",</span>
+<span class="s">    "company": "美孚1号店",</span>
+<span class="s">    "contactName": "王新军",</span>
+<span class="s">    "contactNumber": "18901076116",</span>
+<span class="s">    "drivingLicenseType": "",</span>
+<span class="s">    "email": "",</span>
+<span class="s">    "icon": "201412/1418865737066_3678.jpg",</span>
+<span class="s">    "id": 593660,</span>
+<span class="s">    "idPhotoZheng": "201412/1418865736384_3991.jpg",</span>
+<span class="s">    "identityCardNumber": "141002199611010052",</span>
+<span class="s">    "introduction": "各类汽车诊断  维修",</span>
+<span class="s">    "majorModels": "2;3",</span>
+<span class="s">    "number": "13683311167",</span>
+<span class="s">    "occupationLevel": "1",</span>
+<span class="s">    "occupationType": "维修工",</span>
+<span class="s">    "providerAddress": "北京市丰台区西马厂怡然家园6号院1号楼",</span>
+<span class="s">    "providerId": 590213,</span>
+<span class="s">    "providerName": "万福鸿达汽车服务",</span>
+<span class="s">    "providerNature": "快修养护店",</span>
+<span class="s">    "qq": "663693210",</span>
+<span class="s">    "remark": "",</span>
+<span class="s">    "sex": "男",</span>
+<span class="s">    "technicianServiceTypeId": "1",</span>
+<span class="s">    "userName": "贾冬旻",</span>
+<span class="s">    "weixin": "",</span>
+<span class="s">    "workExperience": "2",</span>
+<span class="s">    "zfbNumber": "13683311167"</span>
+<span class="s">}</span>
+</code></pre>
+<pre><code class="highlight http"><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="s">{</span>
+<span class="s">    "data": {</span>
+<span class="s">        ...</span>
+<span class="s">    },</span>
+<span class="s">    "error_code": 0,</span>
+<span class="s">    "error_message": "成功"</span>
+<span class="s">}</span>
+</code></pre>
+
+<aside class="notice">
+包括添加和更新操作，当传入 id 值时，为更新操作，否则为添加操作。
+</aside>
+
+<p>字段说明</p>
+
+<ul>
+<li><code class="prettyprint">id</code> 技师 ID</li>
+<li><code class="prettyprint">userName</code> 用户昵称</li>
+<li><code class="prettyprint">number</code> 手机号码</li>
+<li><code class="prettyprint">icon</code> 头像地址</li>
+<li><code class="prettyprint">sex</code> 性别</li>
+<li><code class="prettyprint">birthday</code> 生日</li>
+<li><code class="prettyprint">identityCardNumber</code> 身份证号码</li>
+<li><code class="prettyprint">idPhotoZheng</code> 身份证照片</li>
+<li><code class="prettyprint">qq</code> QQ号码</li>
+<li><code class="prettyprint">weixin</code> 微信号</li>
+<li><code class="prettyprint">email</code> 邮箱地址</li>
+<li><code class="prettyprint">drivingLicenseType</code> 驾驶证类型</li>
+<li><code class="prettyprint">zfbNumber</code> 支付宝账号</li>
+<li><code class="prettyprint">bankNumber</code> 银行卡号</li>
+<li><code class="prettyprint">bankName</code> 银行名称</li>
+<li><code class="prettyprint">bankPayee</code> 收款人姓名</li>
+<li><code class="prettyprint">introduction</code> 个人介绍</li>
+<li><code class="prettyprint">workExperience</code> 工作年限</li>
+<li><code class="prettyprint">majorModels</code> 主修车型，多个数字是使用 <code class="prettyprint">;</code> 分号隔开。
+
+<ul>
+<li><code class="prettyprint">1</code> 美系</li>
+<li><code class="prettyprint">2</code> 日系</li>
+<li><code class="prettyprint">3</code> 德系</li>
+<li><code class="prettyprint">4</code> 韩系</li>
+<li><code class="prettyprint">5</code> 法系</li>
+<li><code class="prettyprint">6</code> 自主</li>
+<li><code class="prettyprint">7</code> 欧系其它</li>
+</ul></li>
+<li><code class="prettyprint">technicianServiceTypeId</code> 服务类型，值为数字
+
+<ul>
+<li><code class="prettyprint">1</code> 维修保养</li>
+<li><code class="prettyprint">2</code> 钣金喷漆</li>
+<li><code class="prettyprint">3</code> 美容装饰</li>
+<li><code class="prettyprint">4</code> 保险理赔</li>
+</ul></li>
+<li><code class="prettyprint">occupationType</code> 职业资格类型</li>
+<li><code class="prettyprint">occupationLevel</code> 职业资格等级
+
+<ul>
+<li><code class="prettyprint">1</code> 中级技工</li>
+<li><code class="prettyprint">2</code> 高级技工</li>
+<li><code class="prettyprint">3</code> 技师</li>
+<li><code class="prettyprint">4</code> 高级技师</li>
+</ul></li>
+<li><code class="prettyprint">certificatePhoto</code> 资格证照片 图片地址</li>
+<li><code class="prettyprint">company</code> 目前就职单位</li>
+<li><code class="prettyprint">providerName</code> 商户名称</li>
+<li><code class="prettyprint">providerId</code> 商户ID 有可能没值。</li>
+<li><code class="prettyprint">providerAddress</code> 商户地址</li>
+<li><code class="prettyprint">contactName</code> 联系人</li>
+<li><code class="prettyprint">contactNumber</code> 手机号码</li>
+<li><code class="prettyprint">providerNature</code> 商户性质</li>
+<li><code class="prettyprint">status</code> 审核状态 <code class="prettyprint">3</code> 审核不通过 <code class="prettyprint">5</code> 待审核 <code class="prettyprint">6</code> 审核通过</li>
+<li><code class="prettyprint">recommend</code> 是否推荐 <code class="prettyprint">1</code> 表示推荐 其他表示不推荐</li>
+<li><code class="prettyprint">forbidden</code> 是否封禁 <code class="prettyprint">1</code> 表示是 其他表示否</li>
+<li><code class="prettyprint">remark</code> 备注信息</li>
+</ul>
+
+<h2 id="批量保存技师工作经历">批量保存技师工作经历</h2>
+<pre><code class="highlight http"><span class="nf">POST</span> <span class="nn">/car/consumers/save</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">www.51hyc.com</span>
+<span class="s">[{</span>
+<span class="s">    "company": "",</span>
+<span class="s">    "consumerId": 593660,</span>
+<span class="s">    "id": 98,</span>
+<span class="s">    "station": "",</span>
+<span class="s">    "workContent": ""</span>
+<span class="s">}, {</span>
+<span class="s">    "company": "",</span>
+<span class="s">    "consumerId": 593660,</span>
+<span class="s">    "id": 99,</span>
+<span class="s">    "station": "",</span>
+<span class="s">    "workContent": ""</span>
+<span class="s">}]</span>
+</code></pre>
+<pre><code class="highlight http"><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="s">{</span>
+<span class="s">    "data": {</span>
+<span class="s">        ...</span>
+<span class="s">    },</span>
+<span class="s">    "error_code": 0,</span>
+<span class="s">    "error_message": "成功"</span>
+<span class="s">}</span>
+</code></pre>
+
+<p>字段说明</p>
+
+<ul>
+<li><code class="prettyprint">id</code> 经历 id</li>
+<li><code class="prettyprint">consumerId</code> 技师ID</li>
+<li><code class="prettyprint">company</code> 单位名称</li>
+<li><code class="prettyprint">station</code> 岗位</li>
+<li><code class="prettyprint">workContent</code> 工作内容</li>
+<li><code class="prettyprint">workStartTime</code> 工作开始时间</li>
+<li><code class="prettyprint">workEndTime</code> 工作结束时间</li>
+</ul>
+
+<h2 id="批量删除技师经历">批量删除技师经历</h2>
+<pre><code class="highlight http"><span class="nf">POST</span> <span class="nn">/car/technicianexperiences/delete</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">www.51hyc.com</span>
+<span class="s">[1, 2, 3]</span>
+</code></pre>
+<pre><code class="highlight http"><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="s">{</span>
+<span class="s">    "data": {},</span>
+<span class="s">    "error_code": 0,</span>
+<span class="s">    "error_message": "成功"</span>
+<span class="s">}</span>
+</code></pre>
+
+<p>通过数组方式指定id来删除记录。</p>
+
+<h1 id="问题数据">问题数据</h1>
+
+<h2 id="获取问题列表">获取问题列表</h2>
+<pre><code class="highlight http"><span class="nf">POST</span> <span class="nn">/car/technicianquestionanswers/list</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">www.51hyc.com</span>
+<span class="s">{</span>
+<span class="s">    "otherSearch": {</span>
+<span class="s">        "brandId": "202",</span>
+<span class="s">        "carTypeId": "6763",</span>
+<span class="s">        "consumerNumber": "13811849645",</span>
+<span class="s">        "createTimeEnd": "1420991999000",</span>
+<span class="s">        "createTimeStart": "1420819200000",</span>
+<span class="s">        "hasReply": "true",</span>
+<span class="s">        "seriesId": "602",</span>
+<span class="s">        "technicianNumber": "18911875009"</span>
+<span class="s">    },</span>
+<span class="s">    "pageNum": 1,</span>
+<span class="s">    "pageSize": 30,</span>
+<span class="s">    "search": {</span>
+<span class="s">        "content": "hello",</span>
+<span class="s">        "questionId": 0</span>
+<span class="s">    },</span>
+<span class="s">    "sortFieldName": "createTime",</span>
+<span class="s">    "sortOrder": "desc"</span>
+<span class="s">}</span>
+</code></pre>
+<pre><code class="highlight http"><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="s">{</span>
+<span class="s">    "data": {</span>
+<span class="s">        "list": [</span>
+<span class="s">          {</span>
+<span class="s">              "carKm": 2354,</span>
+<span class="s">              "carTypeId": 6763,</span>
+<span class="s">              "consumerId": 593789,</span>
+<span class="s">              "content": "hello",</span>
+<span class="s">              "createTime": 1420861710717,</span>
+<span class="s">              "deleteTime": 0,</span>
+<span class="s">              "icon": "",</span>
+<span class="s">              "id": 30,</span>
+<span class="s">              "number": 13811849645,</span>
+<span class="s">              "parentId": 0,</span>
+<span class="s">              "questionId": 0,</span>
+<span class="s">              "replyNum": 2,</span>
+<span class="s">              "replyTime": 1420862311760,</span>
+<span class="s">              "status": 5,</span>
+<span class="s">              "updateTime": 1420861710717,</span>
+<span class="s">              "userId": 593789,</span>
+<span class="s">              "userName": "",</span>
+<span class="s">              "userType": 1</span>
+<span class="s">          },</span>
+<span class="s">          ...</span>
+<span class="s">        ],</span>
+<span class="s">        "pageInfo": {</span>
+<span class="s">            "alarmCount": 0,</span>
+<span class="s">            "currentPage": 1,</span>
+<span class="s">            "pageEndRow": 0,</span>
+<span class="s">            "pageSize": 0,</span>
+<span class="s">            "pageStartRow": 0,</span>
+<span class="s">            "totalPage": 1</span>
+<span class="s">        }</span>
+<span class="s">    },</span>
+<span class="s">    "error_code": 0,</span>
+<span class="s">    "error_message": "成功"</span>
+<span class="s">}</span>
+</code></pre>
+
+<p><strong>请求参数说明</strong></p>
+
+<ul>
+<li><code class="prettyprint">pageNum</code> {Number} 指定页码</li>
+<li><code class="prettyprint">pageSize</code> {Number} 指定步长，即每页显示多少条数据。</li>
+<li><code class="prettyprint">sortField</code> {String} 指定排序字段名</li>
+<li><code class="prettyprint">sortOrder</code> {String} 指定排序顺序
+
+<ul>
+<li><code class="prettyprint">asc</code> 正序</li>
+<li><code class="prettyprint">desc</code> 倒序</li>
+</ul></li>
+<li><code class="prettyprint">search</code>
+
+<ul>
+<li><code class="prettyprint">content</code> {String} 内容模糊搜索</li>
+<li><code class="prettyprint">questionId</code> {Number} 问题 ID</li>
+</ul></li>
+<li><code class="prettyprint">otherSearch</code>
+
+<ul>
+<li><code class="prettyprint">brandId</code> {String} 汽车品牌 ID</li>
+<li><code class="prettyprint">seriesId</code> {String} 汽车车系 ID</li>
+<li><code class="prettyprint">carTypeId</code> {String} 汽车车型 ID</li>
+<li><code class="prettyprint">consumerNumber</code> {String} 用户电话号码</li>
+<li><code class="prettyprint">technicianNumber</code> {String} 技师电话号码</li>
+<li><code class="prettyprint">createTimeStart</code> {String} 提问时间 - 开始时间 时间戳格式</li>
+<li><code class="prettyprint">createTimeEnd</code> {String} 提问时间 - 结束时间 时间戳格式</li>
+<li><code class="prettyprint">hasReply</code> {String} <code class="prettyprint">true</code> 表示有回复。</li>
+</ul></li>
+</ul>
+
+<p><strong>字段说明</strong></p>
+
+<ul>
+<li><code class="prettyprint">id</code> 问题 ID</li>
+<li><code class="prettyprint">content</code> 问题简介</li>
+<li><code class="prettyprint">consumerId</code> 用户ID</li>
+<li><code class="prettyprint">userName</code> 用户名</li>
+<li><code class="prettyprint">number</code> 用户电话</li>
+<li><code class="prettyprint">replyNum</code> 回复数</li>
+<li><code class="prettyprint">createTime</code> 提问时间，时间戳格式</li>
+</ul>
+
+<h2 id="获取指定问题">获取指定问题</h2>
+<pre><code class="highlight http"><span class="nf">POST</span> <span class="nn">/car/technicianquestionanswers/get</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">www.51hyc.com</span>
+<span class="s">{</span>
+<span class="s">    "id": 30</span>
+<span class="s">}</span>
+</code></pre>
+<pre><code class="highlight http"><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="s">{</span>
+<span class="s">    "data": {</span>
+<span class="s">        "carKm": 2354,</span>
+<span class="s">        "carType": {</span>
+<span class="s">            "auto": true,</span>
+<span class="s">            "brandLogo": "1413942283838_4162.png",</span>
+<span class="s">            "brandName": "奥迪",</span>
+<span class="s">            "firstMileage": 5000,</span>
+<span class="s">            "firstMonth": 6,</span>
+<span class="s">            "id": 6763,</span>
+<span class="s">            "intervalMileage": 7500,</span>
+<span class="s">            "intervalMonth": 6,</span>
+<span class="s">            "secondMileage": 0,</span>
+<span class="s">            "secondMonth": 0,</span>
+<span class="s">            "seriesId": 602,</span>
+<span class="s">            "seriesName": "A6L",</span>
+<span class="s">            "title": "2014款 TFSI 自动"</span>
+<span class="s">        },</span>
+<span class="s">        "carTypeId": 6763,</span>
+<span class="s">        "consumer": {</span>
+<span class="s">            "id": 593789,</span>
+<span class="s">            ...</span>
+<span class="s">        },</span>
+<span class="s">        "consumerId": 593789,</span>
+<span class="s">        "content": "hello",</span>
+<span class="s">        "createTime": 1420861710717,</span>
+<span class="s">        "deleteTime": 0,</span>
+<span class="s">        "icon": "",</span>
+<span class="s">        "id": 30,</span>
+<span class="s">        "number": 0,</span>
+<span class="s">        "parentId": 0,</span>
+<span class="s">        "questionId": 0,</span>
+<span class="s">        "replyNum": 2,</span>
+<span class="s">        "replyTime": 1420862311760,</span>
+<span class="s">        "status": 5,</span>
+<span class="s">        "updateTime": 1420861710717,</span>
+<span class="s">        "userId": 0,</span>
+<span class="s">        "userName": "",</span>
+<span class="s">        "userType": 1</span>
+<span class="s">    },</span>
+<span class="s">    "error_code": 0,</span>
+<span class="s">    "error_message": "成功"</span>
+<span class="s">}</span>
+</code></pre>
+
+<p>通过传入 id 值指定具体数据。</p>
+
+<p><strong>字段说明</strong></p>
+
+<ul>
+<li><code class="prettyprint">id</code> 问题 ID</li>
+<li><code class="prettyprint">content</code> 问题简介</li>
+<li><code class="prettyprint">consumerId</code> 用户ID</li>
+<li><code class="prettyprint">userName</code> 用户名</li>
+<li><code class="prettyprint">number</code> 用户电话</li>
+<li><code class="prettyprint">replyNum</code> 回复数</li>
+<li><code class="prettyprint">createTime</code> 提问时间，时间戳格式</li>
+<li><code class="prettyprint">carType</code> 关联车辆信息
+
+<ul>
+<li><code class="prettyprint">brandName</code> 汽车品牌</li>
+<li><code class="prettyprint">seriesName</code> 车系</li>
+<li><code class="prettyprint">title</code> 车名</li>
+</ul></li>
+<li><code class="prettyprint">consumer</code> 用户信息，请查看用户详情接口。</li>
+</ul>
+
+<h2 id="获取指定问题回复列表">获取指定问题回复列表</h2>
+<pre><code class="highlight http"><span class="nf">POST</span> <span class="nn">/car/technicianquestionanswers/list</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">www.51hyc.com</span>
+<span class="s">{</span>
+<span class="s">    "pageNum": 1,</span>
+<span class="s">    "pageSize": 999999,</span>
+<span class="s">    "search": {</span>
+<span class="s">        "questionId": 21</span>
+<span class="s">    },</span>
+<span class="s">    "sortOrder": "asc"</span>
+<span class="s">}</span>
+</code></pre>
+<pre><code class="highlight http"><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="s">{</span>
+<span class="s">    "data": {</span>
+<span class="s">        "list": [{</span>
+<span class="s">            "carKm": 0,</span>
+<span class="s">            "carTypeId": 0,</span>
+<span class="s">            "consumerId": 593664,</span>
+<span class="s">            "content": "更好后悔吧",</span>
+<span class="s">            "createTime": 1420853910675,</span>
+<span class="s">            "deleteTime": 0,</span>
+<span class="s">            "icon": "201412/1418870856439_8802.png",</span>
+<span class="s">            "id": 22,</span>
+<span class="s">            "number": 13001228848,</span>
+<span class="s">            "parentId": 21,</span>
+<span class="s">            "questionId": 21,</span>
+<span class="s">            "replyNum": 0,</span>
+<span class="s">            "replyTime": 0,</span>
+<span class="s">            "status": 5,</span>
+<span class="s">            "updateTime": 1420853910675,</span>
+<span class="s">            "userId": 593664,</span>
+<span class="s">            "userName": "测试2",</span>
+<span class="s">            "userType": 2</span>
+<span class="s">        }, {</span>
+<span class="s">            "carKm": 0,</span>
+<span class="s">            "carTypeId": 0,</span>
+<span class="s">            "consumerId": 593664,</span>
+<span class="s">            "content": "仿佛过",</span>
+<span class="s">            "createTime": 1420854014846,</span>
+<span class="s">            "deleteTime": 0,</span>
+<span class="s">            "icon": "201412/1418870856439_8802.png",</span>
+<span class="s">            "id": 23,</span>
+<span class="s">            "number": 13001228848,</span>
+<span class="s">            "parentId": 21,</span>
+<span class="s">            "questionId": 21,</span>
+<span class="s">            "replyNum": 0,</span>
+<span class="s">            "replyTime": 0,</span>
+<span class="s">            "status": 5,</span>
+<span class="s">            "updateTime": 1420854014846,</span>
+<span class="s">            "userId": 593664,</span>
+<span class="s">            "userName": "测试2",</span>
+<span class="s">            "userType": 2</span>
+<span class="s">        }],</span>
+<span class="s">        "pageInfo": {</span>
+<span class="s">            "alarmCount": 0,</span>
+<span class="s">            "currentPage": 1,</span>
+<span class="s">            "pageEndRow": 0,</span>
+<span class="s">            "pageSize": 0,</span>
+<span class="s">            "pageStartRow": 0,</span>
+<span class="s">            "totalPage": 1</span>
+<span class="s">        }</span>
+<span class="s">    },</span>
+<span class="s">    "error_code": 0,</span>
+<span class="s">    "error_message": "成功"</span>
+<span class="s">}</span>
+</code></pre>
+
+<p>和获取问题接口类似，区别在于是否传入 <code class="prettyprint">search.questionId</code>。</p>
+
+<p><strong>字段说明</strong></p>
+
+<ul>
+<li><code class="prettyprint">id</code> 回复 ID</li>
+<li><code class="prettyprint">content</code> 回复内容</li>
+<li><code class="prettyprint">consumerId</code> 用户ID</li>
+<li><code class="prettyprint">userName</code> 用户名</li>
+<li><code class="prettyprint">number</code> 用户电话</li>
+<li><code class="prettyprint">createTime</code> 提问时间，时间戳格式</li>
+<li><code class="prettyprint">carType</code> 关联车辆信息
+
+<ul>
+<li><code class="prettyprint">brandName</code> 汽车品牌</li>
+<li><code class="prettyprint">seriesName</code> 车系</li>
+<li><code class="prettyprint">title</code> 车名</li>
+</ul></li>
+<li><code class="prettyprint">consumer</code> 用户信息，请查看用户详情接口。</li>
+<li><code class="prettyprint">userType</code> 用户类型，<code class="prettyprint">1</code> 表示用户，<code class="prettyprint">2</code> 表示为技师.</li>
+</ul>
+
+<h2 id="获取技师回答">获取技师回答</h2>
+<pre><code class="highlight http"><span class="nf">POST</span> <span class="nn">/car/techniciananswers/list</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">www.51hyc.com</span>
+<span class="s">{</span>
+<span class="s">    "otherSearch": {</span>
+<span class="s">        "createTimeEnd": "1420905599000",</span>
+<span class="s">        "createTimeStart": "1420819200000",</span>
+<span class="s">        "technicianName": "测试",</span>
+<span class="s">        "technicianNumber": "13031114377"</span>
+<span class="s">    },</span>
+<span class="s">    "pageNum": 1,</span>
+<span class="s">    "pageSize": 30,</span>
+<span class="s">    "search": {</span>
+<span class="s">        "content": "后悔"</span>
+<span class="s">    },</span>
+<span class="s">    "sortFieldName": "createTime",</span>
+<span class="s">    "sortOrder": "desc"</span>
+<span class="s">}</span>
+</code></pre>
+<pre><code class="highlight http"><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="s">{</span>
+<span class="s">    "data": {</span>
+<span class="s">        "list": [{</span>
+<span class="s">            "carKm": 0,</span>
+<span class="s">            "carTypeId": 0,</span>
+<span class="s">            "consumerId": 593664,</span>
+<span class="s">            "content": "更好后悔吧",</span>
+<span class="s">            "createTime": 1420853910675,</span>
+<span class="s">            "deleteTime": 0,</span>
+<span class="s">            "icon": "201412/1418870856439_8802.png",</span>
+<span class="s">            "id": 22,</span>
+<span class="s">            "number": 13001228848,</span>
+<span class="s">            "parentId": 21,</span>
+<span class="s">            "question": {</span>
+<span class="s">                "carKm": 8888,</span>
+<span class="s">                "carTypeId": 12755,</span>
+<span class="s">                "consumerId": 593784,</span>
+<span class="s">                "content": "在提问",</span>
+<span class="s">                "createTime": 1420853026566,</span>
+<span class="s">                "deleteTime": 0,</span>
+<span class="s">                "icon": "",</span>
+<span class="s">                "id": 21,</span>
+<span class="s">                "number": 18612529206,</span>
+<span class="s">                "parentId": 0,</span>
+<span class="s">                "questionId": 0,</span>
+<span class="s">                "replyNum": 2,</span>
+<span class="s">                "replyTime": 1420854014877,</span>
+<span class="s">                "status": 5,</span>
+<span class="s">                "updateTime": 1420853026566,</span>
+<span class="s">                "userId": 593784,</span>
+<span class="s">                "userName": "",</span>
+<span class="s">                "userType": 1</span>
+<span class="s">            },</span>
+<span class="s">            "questionId": 21,</span>
+<span class="s">            "replyNum": 0,</span>
+<span class="s">            "replyTime": 0,</span>
+<span class="s">            "status": 5,</span>
+<span class="s">            "updateTime": 1420853910675,</span>
+<span class="s">            "userId": 593664,</span>
+<span class="s">            "userName": "测试2",</span>
+<span class="s">            "userType": 2</span>
+<span class="s">        }, ...],</span>
+<span class="s">        "pageInfo": {</span>
+<span class="s">            "alarmCount": 0,</span>
+<span class="s">            "currentPage": 1,</span>
+<span class="s">            "pageEndRow": 0,</span>
+<span class="s">            "pageSize": 0,</span>
+<span class="s">            "pageStartRow": 0,</span>
+<span class="s">            "totalPage": 1</span>
+<span class="s">        }</span>
+<span class="s">    },</span>
+<span class="s">    "error_code": 0,</span>
+<span class="s">    "error_message": "成功"</span>
+<span class="s">}</span>
+</code></pre>
+
+<p><strong>请求参数说明</strong></p>
+
+<ul>
+<li><code class="prettyprint">pageNum</code> {Number} 指定页码</li>
+<li><code class="prettyprint">pageSize</code> {Number} 指定步长，即每页显示多少条数据。</li>
+<li><code class="prettyprint">sortField</code> {String} 指定排序字段名</li>
+<li><code class="prettyprint">sortOrder</code> {String} 指定排序顺序
+
+<ul>
+<li><code class="prettyprint">asc</code> 正序</li>
+<li><code class="prettyprint">desc</code> 倒序</li>
+</ul></li>
+<li><code class="prettyprint">search</code>
+
+<ul>
+<li><code class="prettyprint">content</code> {String} 内容模糊搜索</li>
+</ul></li>
+<li><code class="prettyprint">otherSearch</code>
+
+<ul>
+<li><code class="prettyprint">consumerNumber</code> {String} 用户电话号码</li>
+<li><code class="prettyprint">technicianNumber</code> {String} 技师电话号码</li>
+<li><code class="prettyprint">createTimeStart</code> {String} 提问时间 - 开始时间 时间戳格式</li>
+<li><code class="prettyprint">createTimeEnd</code> {String} 提问时间 - 结束时间 时间戳格式</li>
+</ul></li>
+</ul>
+
+<p><strong>字段说明</strong></p>
+
+<ul>
+<li><code class="prettyprint">id</code> 回复 ID</li>
+<li><code class="prettyprint">content</code> 回复内容</li>
+<li><code class="prettyprint">createTime</code> 回复日期、</li>
+<li><code class="prettyprint">consumerId</code> 用户ID</li>
+<li><code class="prettyprint">userName</code> 用户名</li>
+<li><code class="prettyprint">number</code> 用户电话</li>
+<li><code class="prettyprint">question</code> 问题数据
+
+<ul>
+<li><code class="prettyprint">id</code> 问题 id</li>
+<li><code class="prettyprint">createTime</code> 提问日期</li>
+<li><code class="prettyprint">content</code> 问题简介</li>
+<li><code class="prettyprint">userName</code> 用户名</li>
+<li><code class="prettyprint">number</code> 用户电话</li>
+</ul></li>
+</ul>
+
+<h1 id="预约数据">预约数据</h1>
+
+<h2 id="预约列表">预约列表</h2>
+<pre><code class="highlight http"><span class="nf">POST</span> <span class="nn">/car/technicianorders/list</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">www.51hyc.com</span>
+<span class="s">{</span>
+<span class="s">    "otherSearch": {</span>
+<span class="s">        "completeTimeEnd": "1423843199000",</span>
+<span class="s">        "completeTimeStart": "1423756800000",</span>
+<span class="s">        "consumerNumber": "13811849645",</span>
+<span class="s">        "createTimeEnd": "1423843199000",</span>
+<span class="s">        "createTimeStart": "1423756800000",</span>
+<span class="s">        "hasComment": "false",</span>
+<span class="s">        "providerInfo": "嘉庆伟业汽车用品商行",</span>
+<span class="s">        "technicianNumber": "13001228848"</span>
+<span class="s">    },</span>
+<span class="s">    "pageNum": 1,</span>
+<span class="s">    "pageSize": 30,</span>
+<span class="s">    "search": {</span>
+<span class="s">        "status": 1,</span>
+<span class="s">        "technicianOrderCode": "100000000001"</span>
+<span class="s">    },</span>
+<span class="s">    "sortOrder": "asc"</span>
+<span class="s">}</span>
+</code></pre>
+<pre><code class="highlight http"><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="s">{</span>
+<span class="s">    "data": {</span>
+<span class="s">        "list": [</span>
+<span class="s">          {</span>
+<span class="s">            "carKm": 27500,</span>
+<span class="s">            "carType": {</span>
+<span class="s">                "auto": true,</span>
+<span class="s">                "brandLogo": "1413949123829_2878.png",</span>
+<span class="s">                "brandName": "起亚",</span>
+<span class="s">                "firstMileage": 2500,</span>
+<span class="s">                "firstMonth": 1,</span>
+<span class="s">                "id": 324265,</span>
+<span class="s">                "intervalMileage": 5000,</span>
+<span class="s">                "intervalMonth": 3,</span>
+<span class="s">                "secondMileage": 0,</span>
+<span class="s">                "secondMonth": 0,</span>
+<span class="s">                "seriesId": 1179,</span>
+<span class="s">                "seriesName": "K5",</span>
+<span class="s">                "title": "2012款 2.0L 自动"</span>
+<span class="s">            },</span>
+<span class="s">            "carTypeId": 324265,</span>
+<span class="s">            "commentNum": 0,</span>
+<span class="s">            "completeTime": 0,</span>
+<span class="s">            "consumer": {</span>
+<span class="s">                "icon": "1414167287096_6176.png",</span>
+<span class="s">                "id": 323552,</span>
+<span class="s">                "number": 13001323552,</span>
+<span class="s">                "userName": "13811849645"</span>
+<span class="s">            },</span>
+<span class="s">            "consumerTechnicianId": 593664,</span>
+<span class="s">            "consumerUserId": 323552,</span>
+<span class="s">            "createTime": 1419753802996,</span>
+<span class="s">            "deleteTime": 0,</span>
+<span class="s">            "icon": "1414167287096_6176.png",</span>
+<span class="s">            "id": 1,</span>
+<span class="s">            "message": "",</span>
+<span class="s">            "number": 13001323552,</span>
+<span class="s">            "provider": {</span>
+<span class="s">                ...</span>
+<span class="s">            },</span>
+<span class="s">            "providerId": 851,</span>
+<span class="s">            "status": 1,</span>
+<span class="s">            "technician": {</span>
+<span class="s">                ...</span>
+<span class="s">            },</span>
+<span class="s">            "technicianConsumptionCode": "516452032316",</span>
+<span class="s">            "technicianOrderCode": "100000000001",</span>
+<span class="s">            "updateTime": 1419753802996,</span>
+<span class="s">            "userName": "13811849645"</span>
+<span class="s">        },</span>
+<span class="s">          ...</span>
+<span class="s">        ],</span>
+<span class="s">        "pageInfo": {</span>
+<span class="s">            "alarmCount": 0,</span>
+<span class="s">            "currentPage": 1,</span>
+<span class="s">            "pageEndRow": 0,</span>
+<span class="s">            "pageSize": 0,</span>
+<span class="s">            "pageStartRow": 0,</span>
+<span class="s">            "totalPage": 1</span>
+<span class="s">        }</span>
+<span class="s">    },</span>
+<span class="s">    "error_code": 0,</span>
+<span class="s">    "error_message": "成功"</span>
+<span class="s">}</span>
+</code></pre>
+
+<p><strong>请求参数说明</strong></p>
+
+<ul>
+<li><code class="prettyprint">pageNum</code> {Number} 指定页码</li>
+<li><code class="prettyprint">pageSize</code> {Number} 指定步长，即每页显示多少条数据。</li>
+<li><code class="prettyprint">sortField</code> {String} 指定排序字段名</li>
+<li><code class="prettyprint">sortOrder</code> {String} 指定排序顺序
+
+<ul>
+<li><code class="prettyprint">asc</code> 正序</li>
+<li><code class="prettyprint">desc</code> 倒序</li>
+</ul></li>
+<li><code class="prettyprint">word</code> 用于模糊搜索。</li>
+<li><code class="prettyprint">search</code>
+
+<ul>
+<li><code class="prettyprint">status</code> {Number} 预约状态: <code class="prettyprint">1</code> 待体验, <code class="prettyprint">1</code> 已完成, <code class="prettyprint">3</code> 已取消.</li>
+<li><code class="prettyprint">technicianOrderCode</code> {String} 预约编号</li>
+</ul></li>
+<li><code class="prettyprint">otherSearch</code>
+
+<ul>
+<li><code class="prettyprint">createTimeStart</code> {String} 预约创建时间 - 开头 时间戳</li>
+<li><code class="prettyprint">createTimeEnd</code> {String} 预约创建时间 - 结尾 时间戳</li>
+<li><code class="prettyprint">completeTimeStart</code> {String} 预约完成时间 - 开头 时间戳</li>
+<li><code class="prettyprint">completeTimeEnd</code> {String} 预约完成时间 - 结尾 时间戳</li>
+<li><code class="prettyprint">consumerNumber</code> {String} 用户号码</li>
+<li><code class="prettyprint">technicianNumber</code> {String} 技师号码</li>
+<li><code class="prettyprint">hasComment</code> {String} <code class="prettyprint">true</code> | <code class="prettyprint">false</code> 是否有评价</li>
+<li><code class="prettyprint">providerInfo</code> 商户信息</li>
+</ul></li>
+</ul>
+
+<p><strong>字段说明</strong></p>
+
+<ul>
+<li><code class="prettyprint">id</code> 预约 ID</li>
+<li><code class="prettyprint">technicianOrderCode</code> 订单编号</li>
+<li><code class="prettyprint">technicianConsumptionCode</code> 预约码</li>
+<li><code class="prettyprint">status</code> 预约状态: <code class="prettyprint">1</code> 待体验, <code class="prettyprint">1</code> 已完成, <code class="prettyprint">3</code> 已取消.</li>
+<li><code class="prettyprint">createTime</code> 创建时间</li>
+<li><code class="prettyprint">updateTime</code> 完成时间</li>
+<li><code class="prettyprint">carType</code> 关联车辆信息
+
+<ul>
+<li><code class="prettyprint">brandName</code> 汽车品牌</li>
+<li><code class="prettyprint">seriesName</code> 车系</li>
+<li><code class="prettyprint">title</code> 车名</li>
+</ul></li>
+<li><code class="prettyprint">consumer</code> 预约用户
+
+<ul>
+<li><code class="prettyprint">id</code> 用户id</li>
+<li><code class="prettyprint">userName</code> 用户名</li>
+<li><code class="prettyprint">number</code> 手机号码</li>
+<li>更多信息，请查看用户接口</li>
+</ul></li>
+<li><code class="prettyprint">provider</code> 商户信息
+
+<ul>
+<li><code class="prettyprint">id</code> 商户 ID</li>
+<li><code class="prettyprint">providerName</code> 商户名称</li>
+<li>更多信息，请查看商户接口</li>
+</ul></li>
+<li><code class="prettyprint">message</code> 预约留言</li>
+</ul>
+
+<h2 id="预约列表">预约列表</h2>
+<pre><code class="highlight http"><span class="nf">POST</span> <span class="nn">/car/technicianorders/get</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">www.51hyc.com</span>
+<span class="s">{</span>
+
+  "id": 1
+}
+</code></pre>
+<pre><code class="highlight http"><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="s">{</span>
+<span class="s">    "data": {</span>
+<span class="s">        "carKm": 27500,</span>
+<span class="s">        "carType": {</span>
+<span class="s">            "auto": true,</span>
+<span class="s">            "brandLogo": "1413949123829_2878.png",</span>
+<span class="s">            "brandName": "起亚",</span>
+<span class="s">            "firstMileage": 2500,</span>
+<span class="s">            "firstMonth": 1,</span>
+<span class="s">            "id": 324265,</span>
+<span class="s">            "intervalMileage": 5000,</span>
+<span class="s">            "intervalMonth": 3,</span>
+<span class="s">            "secondMileage": 0,</span>
+<span class="s">            "secondMonth": 0,</span>
+<span class="s">            "seriesId": 1179,</span>
+<span class="s">            "seriesName": "K5",</span>
+<span class="s">            "title": "2012款 2.0L 自动"</span>
+<span class="s">        },</span>
+<span class="s">        "carTypeId": 324265,</span>
+<span class="s">        "commentNum": 0,</span>
+<span class="s">        "completeTime": 0,</span>
+<span class="s">        "consumer": {</span>
+<span class="s">            "icon": "1414167287096_6176.png",</span>
+<span class="s">            "id": 323552,</span>
+<span class="s">            "number": 13001323552,</span>
+<span class="s">            "userName": "13811849645"</span>
+<span class="s">        },</span>
+<span class="s">        "consumerTechnicianId": 593664,</span>
+<span class="s">        "consumerUserId": 323552,</span>
+<span class="s">        "createTime": 1419753802996,</span>
+<span class="s">        "deleteTime": 0,</span>
+<span class="s">        "icon": "1414167287096_6176.png",</span>
+<span class="s">        "id": 1,</span>
+<span class="s">        "message": "",</span>
+<span class="s">        "number": 13001323552,</span>
+<span class="s">        "provider": {</span>
+<span class="s">            ...</span>
+<span class="s">        },</span>
+<span class="s">        "providerId": 851,</span>
+<span class="s">        "status": 1,</span>
+<span class="s">        "technician": {</span>
+<span class="s">            ...</span>
+<span class="s">        },</span>
+<span class="s">        "technicianConsumptionCode": "516452032316",</span>
+<span class="s">        "technicianOrderCode": "100000000001",</span>
+<span class="s">        "updateTime": 1419753802996,</span>
+<span class="s">        "userName": "13811849645"</span>
+<span class="s">    },</span>
+<span class="s">    "error_code": 0,</span>
+<span class="s">    "error_message": "成功"</span>
+<span class="s">}</span>
+</code></pre>
+
+<p>通过指定 ID 获取详情</p>
+
+<p><strong>字段说明</strong></p>
+
+<ul>
+<li><code class="prettyprint">id</code> 预约 ID</li>
+<li><code class="prettyprint">technicianOrderCode</code> 订单编号</li>
+<li><code class="prettyprint">technicianConsumptionCode</code> 预约码</li>
+<li><code class="prettyprint">status</code> 预约状态: <code class="prettyprint">1</code> 待体验, <code class="prettyprint">1</code> 已完成, <code class="prettyprint">3</code> 已取消.</li>
+<li><code class="prettyprint">createTime</code> 创建时间</li>
+<li><code class="prettyprint">updateTime</code> 完成时间</li>
+<li><code class="prettyprint">carType</code> 关联车辆信息
+
+<ul>
+<li><code class="prettyprint">brandName</code> 汽车品牌</li>
+<li><code class="prettyprint">seriesName</code> 车系</li>
+<li><code class="prettyprint">title</code> 车名</li>
+</ul></li>
+<li><code class="prettyprint">consumer</code> 预约用户
+
+<ul>
+<li><code class="prettyprint">id</code> 用户id</li>
+<li><code class="prettyprint">userName</code> 用户名</li>
+<li><code class="prettyprint">number</code> 手机号码</li>
+<li>更多信息，请查看用户接口</li>
+</ul></li>
+<li><code class="prettyprint">provider</code> 商户信息
+
+<ul>
+<li><code class="prettyprint">id</code> 商户 ID</li>
+<li><code class="prettyprint">providerName</code> 商户名称</li>
+<li>更多信息，请查看商户接口</li>
+</ul></li>
+<li><code class="prettyprint">message</code> 预约留言</li>
+<li><code class="prettyprint">technicianOrderCommentList</code> 评价列表
+
+<ul>
+<li><code class="prettyprint">id</code> 评价 ID</li>
+<li><code class="prettyprint">markpoint</code> 评分</li>
+<li><code class="prettyprint">content</code> 评价内容</li>
+</ul></li>
+</ul>
+
+<h1 id="评论信息">评论信息</h1>
+
+<h2 id="获取评价列表">获取评价列表</h2>
+<pre><code class="highlight http"><span class="nf">POST</span> <span class="nn">/car/comments/list</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">www.51hyc.com</span>
+<span class="s">{</span>
+<span class="s">    "pageNum": 1,</span>
+<span class="s">    "pageSize": 30,</span>
+<span class="s">    "sortOrder": "asc",</span>
+<span class="s">    "word": "13001280302"</span>
+<span class="s">}</span>
+</code></pre>
+<pre><code class="highlight http"><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="s">{</span>
+<span class="s">    "data": {</span>
+<span class="s">        "list": [</span>
+<span class="s">          {</span>
+<span class="s">              "consumerIcon": "",</span>
+<span class="s">              "consumerId": 330101,</span>
+<span class="s">              "consumerName": "",</span>
+<span class="s">              "consumerNumber": "13001330101",</span>
+<span class="s">              "content": "哈哈",</span>
+<span class="s">              "createTime": "2014-10-24 22:50:29",</span>
+<span class="s">              "id": 549002,</span>
+<span class="s">              "image": "1414162229474_4945.png",</span>
+<span class="s">              "markpoint": 3.0,</span>
+<span class="s">              "paymentOrderId": 548859,</span>
+<span class="s">              "providerId": 326901,</span>
+<span class="s">              "providerName": "测试商户",</span>
+<span class="s">              "serviceProductId": 5</span>
+<span class="s">          },</span>
+<span class="s">          ...</span>
+<span class="s">        ],</span>
+<span class="s">        "pageInfo": {</span>
+<span class="s">            "alarmCount": 0,</span>
+<span class="s">            "currentPage": 1,</span>
+<span class="s">            "pageEndRow": 0,</span>
+<span class="s">            "pageSize": 0,</span>
+<span class="s">            "pageStartRow": 0,</span>
+<span class="s">            "totalPage": 1</span>
+<span class="s">        }</span>
+<span class="s">    },</span>
+<span class="s">    "error_code": 0,</span>
+<span class="s">    "error_message": "成功"</span>
+<span class="s">}</span>
+</code></pre>
+
+<p><strong>请求参数说明</strong></p>
+
+<ul>
+<li><code class="prettyprint">pageNum</code> {Number} 指定页码</li>
+<li><code class="prettyprint">pageSize</code> {Number} 指定步长，即每页显示多少条数据。</li>
+<li><code class="prettyprint">sortField</code> {String} 指定排序字段名</li>
+<li><code class="prettyprint">sortOrder</code> {String} 指定排序顺序
+
+<ul>
+<li><code class="prettyprint">asc</code> 正序</li>
+<li><code class="prettyprint">desc</code> 倒序</li>
+</ul></li>
+<li><code class="prettyprint">word</code> 用于模糊搜索。</li>
+</ul>
+
+<p><strong>字段说明</strong></p>
+
+<ul>
+<li><code class="prettyprint">id</code> 评论 ID</li>
+<li><code class="prettyprint">consumerIcon</code> 用户头像图片地址</li>
+<li><code class="prettyprint">consumerName</code> 用户名</li>
+<li><code class="prettyprint">consumerNumber</code> 用户电话</li>
+<li><code class="prettyprint">content</code> 评论内容</li>
+<li><code class="prettyprint">createTime</code> 评论创建时间</li>
+<li><code class="prettyprint">image</code> 图片</li>
+<li><code class="prettyprint">markpoint</code> 评分</li>
+<li><code class="prettyprint">paymentOrderId</code> 订单ID</li>
+<li><code class="prettyprint">providerId</code> 商户ID</li>
+<li><code class="prettyprint">providerName</code> 商户名称</li>
+<li><code class="prettyprint">serviceProductId</code> 商户服务ID</li>
+</ul>
+
+<h1 id="订单数据">订单数据</h1>
+
+<h2 id="获取订单列表">获取订单列表</h2>
+<pre><code class="highlight http"><span class="nf">POST</span> <span class="nn">/car/paymentorders/list</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">www.51hyc.com</span>
+<span class="s">{</span>
+<span class="s">    "otherSearch": {</span>
+<span class="s">        "completeTimeEnd": "2015-02-05 23:59:59",</span>
+<span class="s">        "completeTimeStart": "2015-02-04 00:00:00",</span>
+<span class="s">        "createTimeEnd": "2015-02-05 23:59:59",</span>
+<span class="s">        "createTimeStart": "2015-02-03 00:00:00",</span>
+<span class="s">        "serviceParentId": "101"</span>
+<span class="s">    },</span>
+<span class="s">    "pageNum": 1,</span>
+<span class="s">    "pageSize": 30,</span>
+<span class="s">    "search": {</span>
+<span class="s">        "paymentOrderCode": "100000588251",</span>
+<span class="s">        "providerId": "851",</span>
+<span class="s">        "userNumber": "13001550802"</span>
+<span class="s">    },</span>
+<span class="s">    "sortFieldName": "paymentOrderCode",</span>
+<span class="s">    "sortOrder": "asc"</span>
+<span class="s">}</span>
+</code></pre>
+<pre><code class="highlight http"><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="s">{</span>
+<span class="s">    "data": {</span>
+<span class="s">        "list": [</span>
+<span class="s">          {</span>
+<span class="s">            "carTypeId": 6770,</span>
+<span class="s">            "completeTime": "2014-11-10 12:29:19",</span>
+<span class="s">            "consumerId": 549652,</span>
+<span class="s">            "couponsId": 0,</span>
+<span class="s">            "couponsPrice": 0.00,</span>
+<span class="s">            "createTime": "2014-11-10 12:25:10",</span>
+<span class="s">            "factPrice": 0.01,</span>
+<span class="s">            "id": 588251,</span>
+<span class="s">            "orderConsumptionCode": "511052264712",</span>
+<span class="s">            "paymentOrderCode": "100000588251",</span>
+<span class="s">            "paymentType": 1,</span>
+<span class="s">            "price": 0.01,</span>
+<span class="s">            "providerId": 588051,</span>
+<span class="s">            "serviceList": [{</span>
+<span class="s">                "commentOk": 0,</span>
+<span class="s">                "id": 588301,</span>
+<span class="s">                "paymentOrderId": 588251,</span>
+<span class="s">                "priceAgreement": 0.01,</span>
+<span class="s">                "priceOrigin": 12.00,</span>
+<span class="s">                "serviceId": 1,</span>
+<span class="s">                "serviceName": "人工普洗 "</span>
+<span class="s">            }],</span>
+<span class="s">            "settled": 1,</span>
+<span class="s">            "status": 2,</span>
+<span class="s">            "tradeNo": "2014111069802600",</span>
+<span class="s">            "updateTime": "2014-11-10 12:26:47",</span>
+<span class="s">            "userIcon": "1414408679178_3666.png",</span>
+<span class="s">            "userName": "",</span>
+<span class="s">            "userNumber": 13001549652</span>
+<span class="s">        },</span>
+<span class="s">          ...</span>
+<span class="s">        ],</span>
+<span class="s">        "pageInfo": {</span>
+<span class="s">            "alarmCount": 0,</span>
+<span class="s">            "currentPage": 1,</span>
+<span class="s">            "pageEndRow": 0,</span>
+<span class="s">            "pageSize": 0,</span>
+<span class="s">            "pageStartRow": 0,</span>
+<span class="s">            "totalPage": 1</span>
+<span class="s">        }</span>
+<span class="s">    },</span>
+<span class="s">    "error_code": 0,</span>
+<span class="s">    "error_message": "成功"</span>
+<span class="s">}</span>
+</code></pre>
+
+<p><strong>请求参数说明</strong></p>
+
+<ul>
+<li><code class="prettyprint">pageNum</code> {Number} 指定页码</li>
+<li><code class="prettyprint">pageSize</code> {Number} 指定步长，即每页显示多少条数据。</li>
+<li><code class="prettyprint">sortField</code> {String} 指定排序字段名</li>
+<li><code class="prettyprint">sortOrder</code> {String} 指定排序顺序
+
+<ul>
+<li><code class="prettyprint">asc</code> 正序</li>
+<li><code class="prettyprint">desc</code> 倒序</li>
+</ul></li>
+<li><code class="prettyprint">word</code> 用于模糊搜索。</li>
+<li><code class="prettyprint">search</code>
+
+<ul>
+<li><code class="prettyprint">paymentOrderCode</code> {String} 订单 ID</li>
+<li><code class="prettyprint">providerId</code> {String} 商户ID</li>
+<li><code class="prettyprint">userNumber</code> 用户手机号码</li>
+</ul></li>
+<li><code class="prettyprint">otherSearch</code>
+
+<ul>
+<li><code class="prettyprint">createTimeStart</code> 订单创建时间 - 开头</li>
+<li><code class="prettyprint">createTimeEnd</code> 订单创建时间 - 结尾</li>
+<li><code class="prettyprint">completeTimeStart</code> 订单结束时间 - 开头</li>
+<li><code class="prettyprint">completeTimeEnd</code> 订单结束时间 - 结尾</li>
+<li><code class="prettyprint">serviceParentId</code> 服务ID</li>
+</ul></li>
+</ul>
+
+<p><strong>字段说明</strong></p>
+
+<ul>
+<li><code class="prettyprint">id</code> 订单 ID</li>
+<li><code class="prettyprint">paymentOrderCode</code> 订单编号</li>
+<li><code class="prettyprint">orderConsumptionCode</code> 消费码</li>
+<li><code class="prettyprint">orderTime</code> 完成时间</li>
+<li><code class="prettyprint">status</code> 订单状态
+
+<ul>
+<li><code class="prettyprint">1</code> 待体验</li>
+<li><code class="prettyprint">2</code> 已完成</li>
+<li><code class="prettyprint">3</code> 已取消</li>
+<li><code class="prettyprint">4</code> 已退款</li>
+<li><code class="prettyprint">5</code> 退款中</li>
+<li><code class="prettyprint">6</code> 待支付</li>
+<li><code class="prettyprint">8</code> 已发起退款</li>
+</ul></li>
+<li><code class="prettyprint">settled</code> 是否结算</li>
+<li><code class="prettyprint">createTime</code> 创建时间</li>
+<li><code class="prettyprint">providerId</code> 商户ID</li>
+<li><code class="prettyprint">consumerId</code> 用户ID</li>
+<li><code class="prettyprint">userName</code> 用户名</li>
+<li><code class="prettyprint">userNumber</code> 手机号码</li>
+<li><code class="prettyprint">serviceList</code> 服务信息
+
+<ul>
+<li><code class="prettyprint">serviceId</code> 服务ID</li>
+<li><code class="prettyprint">serviceName</code> 服务名称</li>
+<li><code class="prettyprint">priceAgreement</code> 服务价格</li>
+</ul></li>
+<li><code class="prettyprint">paymentType</code> 支付方式
+
+<ul>
+<li><code class="prettyprint">1</code> 支付宝</li>
+<li><code class="prettyprint">2</code> 微信</li>
+<li><code class="prettyprint">3</code> 银联</li>
+</ul></li>
+<li><code class="prettyprint">price</code> 支付金额</li>
+<li><code class="prettyprint">couponsPrice</code> 优惠券金额</li>
+<li><code class="prettyprint">tradeNo</code> 支付交易号</li>
+</ul>
+
+      </div>
+      <div class="dark-box">
+          <div class="lang-selector">
+                <a href="#" data-language-name="http">http</a>
+          </div>
+      </div>
+    </div>
+  </body>
+</html>
